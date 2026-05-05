@@ -171,10 +171,10 @@ class ChangePasswordPage extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: AppColors.kGreen.withValues(alpha: 0.08),
+                      color: AppColors.kPrimary.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: AppColors.kGreen.withValues(alpha: 0.25),
+                        color: AppColors.kPrimary.withValues(alpha: 0.25),
                       ),
                     ),
                     child: Row(

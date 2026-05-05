@@ -20,7 +20,7 @@ class SubPageHeader extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(20, 56, 20, 28),
-            color: AppColors.kGreen,
+            color: AppColors.kPrimary,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

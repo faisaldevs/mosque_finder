@@ -3,6 +3,7 @@
 // ═════════════════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
+import 'package:mosque_finder_app/app/router/config/route_extention.dart';
 import 'package:mosque_finder_app/app/theme/app_colors.dart';
 import 'package:mosque_finder_app/feature/auth/presentation/widgets/auth_button.dart';
 import 'package:mosque_finder_app/feature/auth/presentation/widgets/auth_header_widget.dart';
@@ -122,7 +123,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Read-only email display
+        // Read-only email display with icon
         const Text(
           'Your email address',
           style: TextStyle(
@@ -136,7 +137,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           decoration: BoxDecoration(
-            color: AppColors.kCard,
+            color: AppColors.kWhite,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: AppColors.kBorder),
           ),
@@ -224,7 +225,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ),
         const SizedBox(height: 28),
 
-        GreenButton(text: 'Confirm reset', onTap: () {}),
+        GreenButton(
+          text: 'Confirm reset',
+          onTap: () {
+            nav.toLogin();
+          },
+        ),
         const SizedBox(height: 28),
 
         Center(
@@ -270,7 +276,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         decoration: InputDecoration(
           counterText: '',
           filled: true,
-          fillColor: AppColors.kCard,
+          fillColor: AppColors.kPrimary.withValues(alpha: 0.05),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: AppColors.kBorder),

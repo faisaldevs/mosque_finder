@@ -106,7 +106,7 @@ Widget greenBtn(String text, VoidCallback onTap) => SizedBox(
   child: ElevatedButton(
     onPressed: onTap,
     style: ElevatedButton.styleFrom(
-      backgroundColor: AppColors.kGreen,
+      backgroundColor: AppColors.kPrimary,
       foregroundColor: AppColors.kText,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),

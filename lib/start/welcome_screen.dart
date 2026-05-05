@@ -101,7 +101,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.kGreen,
+      backgroundColor: AppColors.kPrimary,
       body: Stack(
         children: [
           // Decorative circles - same language as auth screens but fuller
@@ -138,7 +138,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     const Text(
                       'Mosque Finder',
                       style: TextStyle(
-                        color: AppColors.kText,
+                        color: AppColors.kTextWhite,
                         fontSize: 32,
                         fontWeight: FontWeight.w800,
                         letterSpacing: -0.5,

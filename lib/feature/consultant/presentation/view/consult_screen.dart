@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_finder_app/app/router/config/route_extention.dart';
 import 'package:mosque_finder_app/app/theme/app_colors.dart';
 
 // ─── Data model ───────────────────────────────────────────────────────────────
@@ -154,47 +155,72 @@ class _ConsultScreenState extends State<ConsultScreen> {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.15),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.25),
-                          width: 1,
-                        ),
-                      ),
-                      child: const Icon(
-                        Icons.chat_bubble_outline_rounded,
-                        color: Colors.white,
-                        size: 18,
+                GestureDetector(
+                  onTap: () => nav.goBack(),
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withValues(alpha: 0.18),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.3),
+                        width: 1,
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    const Text(
-                      'Islamic Consultancy',
+                    child: Icon(
+                      Icons.arrow_back_rounded,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        // Container(
+                        //   width: 36,
+                        //   height: 36,
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white.withValues(alpha: 0.15),
+                        //     shape: BoxShape.circle,
+                        //     border: Border.all(
+                        //       color: Colors.white.withValues(alpha: 0.25),
+                        //       width: 1,
+                        //     ),
+                        //   ),
+                        //   child: const Icon(
+                        //     Icons.chat_bubble_outline_rounded,
+                        //     color: Colors.white,
+                        //     size: 18,
+                        //   ),
+                        // ),
+                        // const SizedBox(width: 12),
+                        const Text(
+                          'Islamic Consultancy',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: -0.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Get guidance from qualified scholars',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -0.3,
+                        color: Colors.white.withValues(alpha: 0.75),
+                        fontSize: 14,
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Get guidance from qualified scholars',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.75),
-                    fontSize: 14,
-                  ),
                 ),
               ],
             ),
@@ -248,10 +274,10 @@ class _ConsultScreenState extends State<ConsultScreen> {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: sel ? AppColors.kGreen : Colors.transparent,
+                      color: sel ? AppColors.kPrimary : Colors.transparent,
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(
-                        color: sel ? AppColors.kGreen : AppColors.kBorder,
+                        color: sel ? AppColors.kPrimary : AppColors.kBorder,
                         width: sel ? 1.5 : 1,
                       ),
                     ),
@@ -321,9 +347,9 @@ class _ConsultantCard extends StatelessWidget {
                         height: 60,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: AppColors.kGreen.withValues(alpha: 0.12),
+                          color: AppColors.kPrimary.withValues(alpha: 0.12),
                           border: Border.all(
-                            color: AppColors.kGreen.withValues(alpha: 0.3),
+                            color: AppColors.kPrimary.withValues(alpha: 0.3),
                             width: 1.5,
                           ),
                         ),
@@ -549,7 +575,7 @@ class _ConsultantCard extends StatelessWidget {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.kGreen,
+                            backgroundColor: AppColors.kPrimary,
                             foregroundColor: Colors.white,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
@@ -834,12 +860,12 @@ class _ConsultantDetailPage extends StatelessWidget {
                                   vertical: 7,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppColors.kGreen.withValues(
+                                  color: AppColors.kPrimary.withValues(
                                     alpha: 0.1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color: AppColors.kGreen.withValues(
+                                    color: AppColors.kPrimary.withValues(
                                       alpha: 0.3,
                                     ),
                                   ),
@@ -914,7 +940,7 @@ class _ConsultantDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.kGreen,
+                    backgroundColor: AppColors.kPrimary,
                     foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
@@ -1183,11 +1209,13 @@ class _BookingPageState extends State<_BookingPage> {
                                   vertical: 12,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: sel ? AppColors.kGreen : AppColors.kBg,
+                                  color: sel
+                                      ? AppColors.kPrimary
+                                      : AppColors.kBg,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                     color: sel
-                                        ? AppColors.kGreen
+                                        ? AppColors.kPrimary
                                         : AppColors.kBorder,
                                   ),
                                 ),
@@ -1247,12 +1275,12 @@ class _BookingPageState extends State<_BookingPage> {
                                   height: 72,
                                   decoration: BoxDecoration(
                                     color: sel
-                                        ? AppColors.kGreen
+                                        ? AppColors.kPrimary
                                         : AppColors.kBg,
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
                                       color: sel
-                                          ? AppColors.kGreen
+                                          ? AppColors.kPrimary
                                           : AppColors.kBorder,
                                     ),
                                   ),
@@ -1321,14 +1349,14 @@ class _BookingPageState extends State<_BookingPage> {
                                 color: busy
                                     ? AppColors.kBg.withValues(alpha: 0.5)
                                     : sel
-                                    ? AppColors.kGreen
+                                    ? AppColors.kPrimary
                                     : AppColors.kBg,
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                   color: busy
                                       ? AppColors.kBorder.withValues(alpha: 0.4)
                                       : sel
-                                      ? AppColors.kGreen
+                                      ? AppColors.kPrimary
                                       : AppColors.kBorder,
                                 ),
                               ),
@@ -1396,7 +1424,7 @@ class _BookingPageState extends State<_BookingPage> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
-                              color: AppColors.kGreen,
+                              color: AppColors.kPrimary,
                               width: 1.5,
                             ),
                           ),
@@ -1457,8 +1485,8 @@ class _BookingPageState extends State<_BookingPage> {
                     : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _selectedSlot >= 0
-                      ? AppColors.kGreen
-                      : AppColors.kGreen.withValues(alpha: 0.4),
+                      ? AppColors.kPrimary
+                      : AppColors.kPrimary.withValues(alpha: 0.4),
                   foregroundColor: Colors.white,
                   disabledForegroundColor: Colors.white60,
                   elevation: 0,
@@ -1541,9 +1569,9 @@ class _BookingPageState extends State<_BookingPage> {
               height: 56,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.kGreen.withValues(alpha: 0.15),
+                color: AppColors.kPrimary.withValues(alpha: 0.15),
                 border: Border.all(
-                  color: AppColors.kGreen.withValues(alpha: 0.3),
+                  color: AppColors.kPrimary.withValues(alpha: 0.3),
                 ),
               ),
               child: const Icon(
@@ -1602,7 +1630,7 @@ class _BookingPageState extends State<_BookingPage> {
                       content: const Text(
                         '✅ Booking confirmed! JazakAllahu Khayran.',
                       ),
-                      backgroundColor: AppColors.kGreen,
+                      backgroundColor: AppColors.kPrimary,
                       behavior: SnackBarBehavior.floating,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -1611,7 +1639,7 @@ class _BookingPageState extends State<_BookingPage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.kGreen,
+                  backgroundColor: AppColors.kPrimary,
                   foregroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(

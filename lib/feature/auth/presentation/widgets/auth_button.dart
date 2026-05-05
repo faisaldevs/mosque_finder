@@ -22,9 +22,9 @@ class GreenButton extends StatelessWidget {
         onPressed: enabled ? onTap : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: enabled
-              ? AppColors.kGreen
-              : AppColors.kGreen.withValues(alpha: 0.5),
-          foregroundColor: AppColors.kText,
+              ? AppColors.kPrimary
+              : AppColors.kPrimary.withValues(alpha: 0.5),
+          foregroundColor: AppColors.kTextWhite,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),

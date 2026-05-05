@@ -61,11 +61,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        nav.toForgotPassScreen();
+                      },
                       child: const Text(
                         'Forgot password?',
                         style: TextStyle(
-                          color: AppColors.kGreen,
+                          color: AppColors.kPrimary,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -120,7 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       label: const Text(
                         'Google',
-                        style: TextStyle(color: AppColors.kText, fontSize: 15),
+                        style: TextStyle(
+                          color: AppColors.kPrimary,
+                          fontSize: 15,
+                        ),
                       ),
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: AppColors.kBorder),
@@ -148,8 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextSpan(
                               text: 'Sign up',
                               style: TextStyle(
-                                color: AppColors.kGreen,
-
+                                color: AppColors.kPrimary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

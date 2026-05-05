@@ -112,7 +112,7 @@ extension NotifTypeX on NotifType {
   Color get color {
     switch (this) {
       case NotifType.prayer:
-        return AppColors.kGreen;
+        return AppColors.kPrimary;
       case NotifType.donation:
         return AppColors.kGold;
       case NotifType.event:

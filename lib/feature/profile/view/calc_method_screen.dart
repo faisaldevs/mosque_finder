@@ -99,7 +99,7 @@ class CalcMethodPage extends StatelessWidget {
                                                           vertical: 2,
                                                         ),
                                                     decoration: BoxDecoration(
-                                                      color: AppColors.kGreen,
+                                                      color: AppColors.kPrimary,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                             20,

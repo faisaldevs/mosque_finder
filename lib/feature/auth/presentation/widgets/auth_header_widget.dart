@@ -17,7 +17,7 @@ class AppHeader extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(24, 60, 24, 36),
-              color: AppColors.kGreen,
+              color: AppColors.kPrimary,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -41,7 +41,7 @@ class AppHeader extends StatelessWidget {
                   Text(
                     title,
                     style: const TextStyle(
-                      color: AppColors.kText,
+                      color: AppColors.kTextWhite,
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
                       letterSpacing: -0.5,

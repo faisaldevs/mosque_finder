@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:mosque_finder_app/app/router/config/route_names.dart';
+import 'package:mosque_finder_app/feature/auth/presentation/view/forgot_pass_screen.dart';
 import 'package:mosque_finder_app/feature/auth/presentation/view/login_screen.dart';
 
 class AuthRouter {
@@ -47,18 +48,18 @@ class AuthRouter {
     //     );
     //   },
     // ),
-    // GoRoute(
-    //   path: RouteNames.forgotPass,
-    //   name: RouteNames.forgotPass.name,
-    //   // builder: (_, __) => ForgotPassScreen(),
-    //   builder: (context, state) {
-    //     final data = state.extra as Map;
-    //     return ForgotPassScreen(
-    //       phone: data["phone"],
-    //       otp: data["otp"],
-    //     );
-    //   },
-    // ),
+    GoRoute(
+      path: RouteNames.forgotPass,
+      name: RouteNames.forgotPass.name,
+      // builder: (_, __) => ForgotPassScreen(),
+      builder: (context, state) {
+        // final data = state.extra as Map;
+        return ForgotPasswordPage(
+          // phone: data["phone"],
+          // otp: data["otp"],
+        );
+      },
+    ),
     // GoRoute(
     //   path: RouteNames.forgotPassSuccess,
     //   name: RouteNames.forgotPassSuccess.name,

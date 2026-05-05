@@ -120,8 +120,8 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
                       ),
                       decoration: BoxDecoration(
                         color: _canPost
-                            ? AppColors.kGreen
-                            : AppColors.kGreen.withValues(alpha: 0.4),
+                            ? AppColors.kPrimary
+                            : AppColors.kPrimary.withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text(
@@ -245,7 +245,7 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
                           color: AppColors.kBg,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: AppColors.kGreen.withValues(alpha: 0.4),
+                            color: AppColors.kPrimary.withValues(alpha: 0.4),
                           ),
                         ),
                         child: Column(
@@ -327,6 +327,7 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text('🖼️', style: TextStyle(fontSize: 48)),
+
                                 SizedBox(height: 8),
                                 Text(
                                   'Tap to add photo',
@@ -380,6 +381,7 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
                       ),
                     ),
                   ),
+
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -422,9 +424,11 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
                                 Text(
                                   t.label,
                                   style: TextStyle(
-                                    color: sel
-                                        ? hexToColor(t.colorHex)
-                                        : AppColors.kSubText,
+                                    color:
+                                        //  sel
+                                        //     ? hexToColor(t.colorHex)
+                                        //     :
+                                        AppColors.kSubText,
                                     fontSize: 13,
                                     fontWeight: sel
                                         ? FontWeight.w600

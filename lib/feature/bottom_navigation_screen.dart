@@ -159,7 +159,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
                           color: selected
-                              ? AppColors.kGreen.withValues(alpha: 0.15)
+                              ? AppColors.kPrimary.withValues(alpha: 0.15)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(12),
                         ),

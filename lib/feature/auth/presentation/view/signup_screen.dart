@@ -92,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   const Text(
                     'Password',
                     style: TextStyle(
-                      color: AppColors.kText,
+                      color: AppColors.kTextBlack,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -103,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     obscureText: true,
                     onChanged: _evaluatePassword,
                     style: const TextStyle(
-                      color: AppColors.kText,
+                      color: AppColors.kTextBlack,
                       fontSize: 15,
                     ),
                     decoration: InputDecoration(
@@ -115,12 +115,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         size: 20,
                       ),
                       filled: true,
-                      fillColor: AppColors.kCard,
+                      fillColor: AppColors.kPrimary.withValues(alpha: 0.05),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: const BorderSide(color: AppColors.kBorder),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder( 
                         borderRadius: BorderRadius.circular(12),
                         borderSide: const BorderSide(
                           color: AppColors.kGreenLight,
@@ -164,7 +164,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           value: _agreed,
                           onChanged: (v) =>
                               setState(() => _agreed = v ?? false),
-                          activeColor: AppColors.kGreen,
+                          activeColor: AppColors.kPrimary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -184,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               TextSpan(
                                 text: 'Terms',
                                 style: TextStyle(
-                                  color: AppColors.kGreenLight,
+                                  color: AppColors.kPrimary,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -192,7 +192,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               TextSpan(
                                 text: 'Privacy Policy',
                                 style: TextStyle(
-                                  color: AppColors.kGreenLight,
+                                  color: AppColors.kPrimary,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -223,7 +223,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             TextSpan(
                               text: 'Sign in',
                               style: TextStyle(
-                                color: AppColors.kGreenLight,
+                                color: AppColors.kPrimary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

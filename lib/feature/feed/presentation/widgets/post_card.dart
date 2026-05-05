@@ -219,7 +219,7 @@ class _PostCardState extends State<PostCard> {
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
-                color: AppColors.kGreen.withValues(alpha: 0.15),
+                color: AppColors.kPrimary.withValues(alpha: 0.15),
               ),
               child: Center(
                 child: Text(
@@ -345,7 +345,7 @@ class _PostCardState extends State<PostCard> {
         tag = 'Check-in';
         break;
       case 'prayer':
-        bg = AppColors.kGreen;
+        bg = AppColors.kPrimary;
         icon = Icons.access_time_rounded;
         tag = 'Prayer';
         break;

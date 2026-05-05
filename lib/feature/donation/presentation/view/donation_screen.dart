@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_finder_app/app/router/config/route_extention.dart';
 import 'package:mosque_finder_app/app/theme/app_colors.dart';
 import 'package:mosque_finder_app/feature/donation/model/donation_model.dart';
 import 'package:mosque_finder_app/feature/donation/presentation/widget/campain_widget.dart';
@@ -83,46 +84,71 @@ class _DonateScreenState extends State<DonateScreen> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 38,
-                    height: 38,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white.withValues(alpha: 0.18),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.28),
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.favorite_rounded,
-                      color: Colors.white,
-                      size: 18,
+              GestureDetector(
+                onTap: () => nav.goBack(),
+                child: Container(
+                  width: 38,
+                  height: 38,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white.withValues(alpha: 0.18),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.3),
+                      width: 1,
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  const Text(
-                    'Donations',
+                  child: Icon(
+                    Icons.arrow_back_rounded,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                ),
+              ),
+              SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      // Container(
+                      //   width: 38,
+                      //   height: 38,
+                      //   decoration: BoxDecoration(
+                      //     shape: BoxShape.circle,
+                      //     color: Colors.white.withValues(alpha: 0.18),
+                      //     border: Border.all(
+                      //       color: Colors.white.withValues(alpha: 0.28),
+                      //     ),
+                      //   ),
+                      //   child: const Icon(
+                      //     Icons.favorite_rounded,
+                      //     color: Colors.white,
+                      //     size: 18,
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 12),
+                      const Text(
+                        'Donations',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -0.3,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Give charity and earn endless rewards',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.3,
+                      color: Colors.white.withValues(alpha: 0.78),
+                      fontSize: 13,
                     ),
                   ),
                 ],
-              ),
-              const SizedBox(height: 6),
-              Text(
-                'Give charity and earn endless rewards',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.78),
-                  fontSize: 13,
-                ),
               ),
             ],
           ),

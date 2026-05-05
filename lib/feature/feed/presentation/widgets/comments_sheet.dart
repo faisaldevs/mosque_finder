@@ -130,7 +130,7 @@ class _CommentsSheetState extends State<CommentsSheet> {
                   horizontal: 16,
                   vertical: 8,
                 ),
-                color: AppColors.kGreen.withValues(alpha: 0.1),
+                color: AppColors.kPrimary.withValues(alpha: 0.1),
                 child: Row(
                   children: [
                     Text(
@@ -221,8 +221,8 @@ class _CommentsSheetState extends State<CommentsSheet> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: _ctrl.text.trim().isNotEmpty
-                            ? AppColors.kGreen
-                            : AppColors.kGreen.withValues(alpha: 0.3),
+                            ? AppColors.kPrimary
+                            : AppColors.kPrimary.withValues(alpha: 0.3),
                       ),
                       child: const Icon(
                         Icons.send_rounded,
@@ -323,7 +323,7 @@ class _CommentTileState extends State<_CommentTile> {
                         c.liked ? 'Liked' : 'Like',
                         style: TextStyle(
                           color: c.liked
-                              ? AppColors.kGreenLight
+                              ? AppColors.kPrimary
                               : AppColors.kSubText,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,

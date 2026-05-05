@@ -45,7 +45,7 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: AppColors.kCard,
-                          border: Border.all(color: AppColors.kGreen, width: 2),
+                          border: Border.all(color: AppColors.kPrimary, width: 2),
                         ),
                         child: const Center(
                           child: Text('🧑', style: TextStyle(fontSize: 42)),
@@ -58,7 +58,7 @@ class PersonalInfoPage extends StatelessWidget {
                           width: 26,
                           height: 26,
                           decoration: BoxDecoration(
-                            color: AppColors.kGreen,
+                            color: AppColors.kPrimary,
                             shape: BoxShape.circle,
                             border: Border.all(color: AppColors.kBg, width: 2),
                           ),

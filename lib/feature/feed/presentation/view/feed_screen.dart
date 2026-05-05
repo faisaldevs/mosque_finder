@@ -64,6 +64,7 @@ class _FeedScreenContent extends StatelessWidget {
           _buildTopBar(context),
           Expanded(
             child: ListView.builder(
+              padding: const EdgeInsets.only(bottom: 12),
               physics: const BouncingScrollPhysics(),
               itemCount: feedVM.posts.length + 1,
               itemBuilder: (ctx, i) {
@@ -93,7 +94,7 @@ class _FeedScreenContent extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(20, 52, 20, 16),
-            color: AppColors.kGreen,
+            color: AppColors.kPrimary,
             child: Row(
               children: const [
                 Text(

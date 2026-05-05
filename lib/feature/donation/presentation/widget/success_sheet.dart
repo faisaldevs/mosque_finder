@@ -117,7 +117,7 @@ class SuccessSheet extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () => Navigator.of(context).pop(),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.kGreen,
+                backgroundColor: AppColors.kPrimary,
                 foregroundColor: Colors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(

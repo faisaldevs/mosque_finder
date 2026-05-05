@@ -8,9 +8,9 @@ Widget buildAvatar(String emoji, double size) => Container(
   height: size,
   decoration: BoxDecoration(
     shape: BoxShape.circle,
-    color: AppColors.kGreen.withValues(alpha: 0.15),
+    color: AppColors.kPrimary.withValues(alpha: 0.15),
     border: Border.all(
-      color: AppColors.kGreen.withValues(alpha: 0.3),
+      color: AppColors.kPrimary.withValues(alpha: 0.3),
       width: 1.2,
     ),
   ),
@@ -101,10 +101,6 @@ String formatCount(int n) {
 
 // ─── Hex color to Color converter ──────────────────────────────────────────────
 Color hexToColor(String hexString) {
-  final buffer = StringBuffer();
-  if (!hexString.startsWith('#')) buffer.write('#');
-  buffer.write(hexString);
-  return Color(
-    int.parse(buffer.toString().replaceFirst('#', '0xff'), radix: 16),
-  );
+  final hex = hexString.replaceFirst('#', '');
+  return Color(int.parse('0x$hex'));
 }

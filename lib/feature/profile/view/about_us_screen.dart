@@ -43,7 +43,7 @@ class AboutPage extends StatelessWidget {
                             width: 72,
                             height: 72,
                             decoration: BoxDecoration(
-                              color: AppColors.kGreen,
+                              color: AppColors.kPrimary,
                               borderRadius: BorderRadius.circular(18),
                             ),
                             child: const Center(
@@ -71,7 +71,7 @@ class AboutPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              _chip('Free', AppColors.kGreen),
+                              _chip('Free', AppColors.kPrimary),
                               const SizedBox(width: 8),
                               _chip('OpenStreetMap', const Color(0xFF1565C0)),
                             ],
@@ -235,7 +235,7 @@ class AboutPage extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: AppColors.kGreen.withValues(alpha: 0.15),
+                color: AppColors.kPrimary.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: AppColors.kGreenLight, size: 18),

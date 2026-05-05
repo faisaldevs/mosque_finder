@@ -50,12 +50,12 @@ class AzanRemindersPage extends StatelessWidget {
                                     width: 36,
                                     height: 36,
                                     decoration: BoxDecoration(
-                                      color: AppColors.kGreen.withValues(
+                                      color: AppColors.kPrimary.withValues(
                                         alpha: 0.15,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                        color: AppColors.kGreen.withValues(
+                                        color: AppColors.kPrimary.withValues(
                                           alpha: 0.3,
                                         ),
                                       ),
@@ -95,7 +95,7 @@ class AzanRemindersPage extends StatelessWidget {
                                     value: vm.isEnabled(i),
                                     onChanged: (v) => vm.togglePrayer(i),
                                     activeColor: AppColors.kGreenLight,
-                                    activeTrackColor: AppColors.kGreen,
+                                    activeTrackColor: AppColors.kPrimary,
                                   ),
                                 ],
                               ),
@@ -165,7 +165,7 @@ class AzanRemindersPage extends StatelessWidget {
                                           vertical: 2,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: AppColors.kGreen,
+                                          color: AppColors.kPrimary,
                                           borderRadius: BorderRadius.circular(
                                             20,
                                           ),

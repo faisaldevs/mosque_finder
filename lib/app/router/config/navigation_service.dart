@@ -94,6 +94,8 @@ class NavigationService {
       _router.pop();
     }
   }
+
+
 }
 
 // class NavigationService {

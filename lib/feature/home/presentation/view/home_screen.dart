@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
               20,
               28,
             ),
-            color: AppColors.kGreen,
+            color: AppColors.kPrimary,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -305,10 +305,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.kGreen.withValues(alpha: 0.12),
+                  color: AppColors.kPrimary.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: AppColors.kGreen.withValues(alpha: 0.3),
+                    color: AppColors.kPrimary.withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(

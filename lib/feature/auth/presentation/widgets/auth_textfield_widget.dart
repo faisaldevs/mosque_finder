@@ -51,7 +51,7 @@ class AuthTextField extends StatelessWidget {
             prefixIcon: Icon(prefixIcon, color: AppColors.kSubText, size: 20),
             suffixIcon: suffix,
             filled: true,
-            fillColor: AppColors.kCard,
+            fillColor: AppColors.kPrimary.withValues(alpha: 0.05),
             errorText: errorText,
             errorStyle: const TextStyle(color: AppColors.kError),
             enabledBorder: OutlineInputBorder(
@@ -60,7 +60,7 @@ class AuthTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.kGreen, width: 1.5),
+              borderSide: const BorderSide(color: AppColors.kPrimary, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

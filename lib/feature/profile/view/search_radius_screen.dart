@@ -71,7 +71,7 @@ class SearchRadiusPage extends StatelessWidget {
                                   color: AppColors.kGreenLight,
                                 ),
                                 borderRadius: BorderRadius.circular(10),
-                                color: AppColors.kGreen.withValues(alpha: 0.08),
+                                color: AppColors.kPrimary.withValues(alpha: 0.08),
                               ),
                               child: Text(
                                 '${vm.searchRadius.round()} km',
@@ -88,7 +88,7 @@ class SearchRadiusPage extends StatelessWidget {
                                 activeTrackColor: AppColors.kGreenLight,
                                 inactiveTrackColor: AppColors.kBorder,
                                 thumbColor: AppColors.kGreenLight,
-                                overlayColor: AppColors.kGreen.withValues(
+                                overlayColor: AppColors.kPrimary.withValues(
                                   alpha: 0.2,
                                 ),
                                 thumbShape: const RoundSliderThumbShape(
@@ -210,7 +210,7 @@ class SearchRadiusPage extends StatelessWidget {
                                                     vertical: 2,
                                                   ),
                                               decoration: BoxDecoration(
-                                                color: AppColors.kGreen,
+                                                color: AppColors.kPrimary,
                                                 borderRadius:
                                                     BorderRadius.circular(20),
                                               ),

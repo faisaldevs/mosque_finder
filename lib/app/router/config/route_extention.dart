@@ -30,7 +30,7 @@ extension NavHelpers on NavigationService {
   //   extra: {"phone": phone},
   // );
 
-  // // void toForgotPass() => pushNamed(RouteNames.forgotPass.name);
+  void toForgotPassScreen() => pushNamed(RouteNames.forgotPass.name);
   // void toForgotPass({required String phone, required String otp}) =>
   //     pushNamedWithExtra(
   //       RouteNames.forgotPass.name,

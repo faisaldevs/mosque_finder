@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     settingsRow(
                       icon: Icons.person_outline_rounded,
-                      iconBg: AppColors.kGreen.withValues(alpha: 0.85),
+                      iconBg: AppColors.kPrimary.withValues(alpha: 0.85),
                       title: 'Personal info',
                       subtitle: 'Name, phone, email',
                       onTap: () => nav.toUserProfileScreen(),
@@ -90,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     settingsRow(
                       icon: Icons.radar_rounded,
-                      iconBg: AppColors.kGreen.withValues(alpha: 0.85),
+                      iconBg: AppColors.kPrimary.withValues(alpha: 0.85),
                       title: 'Search radius',
                       onTap: () => nav.toSearchRadiusScreen(),
                       trailing: Row(
@@ -100,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                             width: 30,
                             height: 22,
                             decoration: BoxDecoration(
-                              color: AppColors.kGreen,
+                              color: AppColors.kPrimary,
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Center(
@@ -133,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
                         value: vm.azanRemindersEnabled,
                         onChanged: (v) => vm.toggleAzanReminders(v),
                         activeColor: AppColors.kGreenLight,
-                        activeTrackColor: AppColors.kGreen,
+                        activeTrackColor: AppColors.kPrimary,
                       ),
                       isLast: true,
                     ),
@@ -242,7 +242,7 @@ class ProfileScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(20, 56, 20, 28),
-            color: AppColors.kGreen,
+            color: AppColors.kPrimary,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -307,7 +307,7 @@ class ProfileScreen extends StatelessWidget {
                               color: AppColors.kBg,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: AppColors.kGreen,
+                                color: AppColors.kPrimary,
                                 width: 1.5,
                               ),
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_finder_app/app/router/config/route_extention.dart';
 import 'package:mosque_finder_app/app/theme/app_colors.dart';
 
 // ─── Category model ───────────────────────────────────────────────────────────
@@ -9,16 +10,14 @@ class _Category {
 }
 
 const _categories = [
-
-  _Category('all', 'All Events', '🗓️', AppColors.kGreen),
-  _Category('ramadan', 'Ramadan', '🌙', AppColors.kGreen),
+  _Category('all', 'All Events', '🗓️', AppColors.kPrimary),
+  _Category('ramadan', 'Ramadan', '🌙', AppColors.kPrimary),
   _Category('eid', 'Eid', '🎉', AppColors.kPink),
   _Category('jumuah', "Jumu'ah", '🕌', AppColors.kTeal),
   _Category('lecture', 'Lectures', '📚', AppColors.kBlue),
   _Category('charity', 'Charity', '❤️', AppColors.kRed),
   _Category('youth', 'Youth', '⚽', AppColors.kOrange),
   _Category('sisters', 'Sisters', '🌸', AppColors.kDeepPurple),
-  
 ];
 
 // ─── Event model ──────────────────────────────────────────────────────────────
@@ -58,7 +57,7 @@ List<_Event> _buildEvents() => [
     attending: 150,
     description:
         'Join us for a community Iftar gathering. All are welcome. Light refreshments will be provided after Maghrib prayer.',
-    color: AppColors.kGreen,
+    color: AppColors.kPrimary,
     featured: true,
   ),
   _Event(
@@ -85,7 +84,7 @@ List<_Event> _buildEvents() => [
     attending: 200,
     description:
         'Special Taraweeh prayers with recitation of the full Quran. Guest Imam from Egypt.',
-    color: AppColors.kGreen,
+    color: AppColors.kPrimary,
   ),
   _Event(
     id: '4',
@@ -287,33 +286,8 @@ class _EventsScreenState extends State<EventsScreen> {
               children: [
                 Row(
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Events & Calendar',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: -0.3,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Stay connected with community activities',
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.78),
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                     GestureDetector(
-                      onTap: () =>
-                          setState(() => _showCalendar = !_showCalendar),
+                      onTap: () => nav.goBack(),
                       child: Container(
                         width: 38,
                         height: 38,
@@ -326,12 +300,64 @@ class _EventsScreenState extends State<EventsScreen> {
                           ),
                         ),
                         child: Icon(
-                          _showCalendar
-                              ? Icons.calendar_month_rounded
-                              : Icons.view_list_rounded,
+                          Icons.arrow_back_rounded,
                           color: Colors.white,
                           size: 18,
                         ),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Events & Calendar',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: -0.3,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Stay connected with community activities',
+                                  style: TextStyle(
+                                    color: Colors.white.withValues(alpha: 0.78),
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () =>
+                                setState(() => _showCalendar = !_showCalendar),
+                            child: Container(
+                              width: 38,
+                              height: 38,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withValues(alpha: 0.18),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.3),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Icon(
+                                _showCalendar
+                                    ? Icons.calendar_month_rounded
+                                    : Icons.view_list_rounded,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -465,16 +491,16 @@ class _EventsScreenState extends State<EventsScreen> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.kGreen.withValues(alpha: 0.15),
+                    color: AppColors.kPrimary.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: AppColors.kGreen.withValues(alpha: 0.35),
+                      color: AppColors.kPrimary.withValues(alpha: 0.35),
                     ),
                   ),
                   child: Text(
                     '$_selectedDay of $_hijriTotalDays',
                     style: const TextStyle(
-                      color: AppColors.kGreen,
+                      color: AppColors.kPrimary,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
@@ -551,12 +577,14 @@ class _EventsScreenState extends State<EventsScreen> {
                       height: 34,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: isToday ? AppColors.kGreen : Colors.transparent,
+                        color: isToday
+                            ? AppColors.kPrimary
+                            : Colors.transparent,
                         border: isToday
                             ? null
                             : Border.all(
                                 color: hasEvent
-                                    ? AppColors.kGreen.withValues(alpha: 0.4)
+                                    ? AppColors.kPrimary.withValues(alpha: 0.4)
                                     : Colors.transparent,
                               ),
                       ),
@@ -567,7 +595,7 @@ class _EventsScreenState extends State<EventsScreen> {
                             color: isToday
                                 ? Colors.white
                                 : hasEvent
-                                ? AppColors.kGreen
+                                ? AppColors.kPrimary
                                 : AppColors.kText,
                             fontSize: 14,
                             fontWeight: (isToday || hasEvent)
@@ -587,7 +615,7 @@ class _EventsScreenState extends State<EventsScreen> {
                         color: hasEvent
                             ? (isToday
                                   ? Colors.white.withValues(alpha: 0.7)
-                                  : AppColors.kGreen)
+                                  : AppColors.kPrimary)
                             : Colors.transparent,
                       ),
                     ),
@@ -1165,7 +1193,7 @@ class _EventDetailPageState extends State<_EventDetailPage> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: [
-                                      AppColors.kGreen,
+                                      AppColors.kPrimary,
                                       AppColors.kTeal,
                                       AppColors.kPink,
                                       AppColors.kBlue,
