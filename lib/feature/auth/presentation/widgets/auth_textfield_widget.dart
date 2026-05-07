@@ -9,6 +9,7 @@ class AuthTextField extends StatelessWidget {
   final Widget? suffix;
   final TextEditingController? controller;
   final String? errorText;
+  final Color? hintColor;
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
 
@@ -23,6 +24,7 @@ class AuthTextField extends StatelessWidget {
     this.errorText,
     this.keyboardType,
     this.onChanged,
+    this.hintColor,
   });
 
   @override
@@ -47,7 +49,7 @@ class AuthTextField extends StatelessWidget {
           style: const TextStyle(color: AppColors.kText, fontSize: 15),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: AppColors.kSubText),
+            hintStyle: TextStyle(color: hintColor ?? AppColors.kGreenLight),
             prefixIcon: Icon(prefixIcon, color: AppColors.kSubText, size: 20),
             suffixIcon: suffix,
             filled: true,
@@ -60,7 +62,10 @@ class AuthTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.kPrimary, width: 1.5),
+              borderSide: const BorderSide(
+                color: AppColors.kPrimary,
+                width: 1.5,
+              ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

@@ -38,7 +38,7 @@ extension NavHelpers on NavigationService {
   //     );
 
   // void toForgotPassSuccess() => pushNamed(RouteNames.forgotPassSuccess.name);
-  void toNavigation() => push(RouteNames.home);
+  void toNavigation() => push(RouteNames.feed);
   // void toNavigation() => go(RouteNames.home);
 
   // //======================

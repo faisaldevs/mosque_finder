@@ -21,12 +21,13 @@ class SubPageHeader extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(20, 56, 20, 28),
             color: AppColors.kPrimary,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: () => context.pop(),
                   child: Container(
+                    margin: EdgeInsets.only(top: 6),
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
@@ -37,30 +38,34 @@ class SubPageHeader extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_back_rounded,
-                      color: AppColors.kText,
+                      color: AppColors.kWhite,
                       size: 17,
                     ),
                   ),
                 ),
-                const SizedBox(height: 14),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: AppColors.kText,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.4,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.75),
-                    fontSize: 13,
-                  ),
+                const SizedBox(width: 14),
+                Column(
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: AppColors.kTextWhite,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.4,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.75),
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -41,7 +41,7 @@ class _CommentsSheetState extends State<CommentsSheet> {
       maxChildSize: 0.95,
       builder: (_, scrollCtrl) => Container(
         decoration: const BoxDecoration(
-          color: AppColors.kCard,
+          color: AppColors.kWhite,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
@@ -166,7 +166,7 @@ class _CommentsSheetState extends State<CommentsSheet> {
               ),
               decoration: const BoxDecoration(
                 border: Border(top: BorderSide(color: AppColors.kBorder)),
-                color: AppColors.kCard,
+                color: AppColors.kWhite,
               ),
               child: Row(
                 children: [
@@ -226,7 +226,7 @@ class _CommentsSheetState extends State<CommentsSheet> {
                       ),
                       child: const Icon(
                         Icons.send_rounded,
-                        color: AppColors.kText,
+                        color: AppColors.kTextWhite,
                         size: 18,
                       ),
                     ),

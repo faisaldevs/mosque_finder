@@ -76,8 +76,9 @@ class AppRouter {
       builder: (context, state, navigationShell) =>
           BottomNavigationScreen(shell: navigationShell),
       branches: [
-        _buildBranch(RouteNames.home, const HomeScreen()),
         _buildBranch(RouteNames.feed, const FeedScreen()),
+        _buildBranch(RouteNames.home, const HomeScreen()),
+
         _buildBranch(RouteNames.mosque, const MosquesFinderScreen()),
 
         // _buildBranch(RouteNames.ranking, const HomeScreen()),

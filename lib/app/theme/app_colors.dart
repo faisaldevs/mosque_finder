@@ -8,13 +8,13 @@ class AppColors {
   ///================================================
   static const kPrimary = Color(0xFF39A79F); //  2E7D32  -->  39A79F
   static const kGreenLight = Color(0xFF83C9C3); //   4CAF50 ---> 83c9c3
+  static const kGreenDark = Color(0xFF085041);
 
   static const kBg = Color(0xFFFFFFFF); // 1C1C1E -->  FFFFFF
-  
 
-  static const kCard = Color(0xFF2A2A2C); // 2A2A2C --> 1C1C1E
+  static const kCard = Color(0xFFFFFFFF); // 2A2A2C --> FFFFFF
 
-  static const kBorder = Color(0xFF3A3A3C);
+  static const kBorder = Color(0xFFC8EBE8);
 
   ///================================================
   ///  Text Colors
@@ -22,7 +22,7 @@ class AppColors {
   static const kText = Color(0xFF1C1C1E); // FFFFFF --> 1C1C1E
   static const kTextBlack = Color(0xFF1C1C1E); // FFFFFF --> 1C1C1E
   static const kTextWhite = Color(0xFFFFFFFF);
-  static const kSubText = Color.fromARGB(255, 201, 201, 208);
+  static const kSubText = Color.fromARGB(255, 104, 104, 104);
 
   ///================================================
   ///  Status Colors
@@ -56,4 +56,5 @@ class AppColors {
   static const kGold = Color(0xFFFF8F00);
   static const kRed = Color(0xFFD32F2F);
   static const kDeepPurple = Color(0xFF880E4F);
+  static const kLightGreen = Color(0xFFE8F7F6);
 }

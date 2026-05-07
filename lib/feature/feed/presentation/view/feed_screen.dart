@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_finder_app/app/router/config/route_extention.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../app/theme/app_colors.dart';
@@ -96,20 +97,23 @@ class _FeedScreenContent extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 52, 20, 16),
             color: AppColors.kPrimary,
             child: Row(
-              children: const [
+              children: [
                 Text(
                   'Community Feed',
                   style: TextStyle(
-                    color: AppColors.kText,
+                    color: AppColors.kTextWhite,
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     letterSpacing: -0.3,
                   ),
                 ),
                 Spacer(),
-                _TopBarIconButton(icon: Icons.search_rounded),
+                _TopBarIconButton(icon: Icons.search_rounded, onTap: () {}),
                 SizedBox(width: 8),
-                _TopBarIconButton(icon: Icons.notifications_outlined),
+                _TopBarIconButton(
+                  icon: Icons.notifications_outlined,
+                  onTap: () => nav.toNotificationScreen(),
+                ),
               ],
             ),
           ),
@@ -144,7 +148,7 @@ class _FeedScreenContent extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.fromLTRB(12, 12, 12, 4),
       decoration: BoxDecoration(
-        color: AppColors.kCard,
+        color: AppColors.kBg,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.kBorder),
       ),
@@ -280,13 +284,14 @@ class _FeedScreenContent extends StatelessWidget {
 
 class _TopBarIconButton extends StatelessWidget {
   final IconData icon;
+  final VoidCallback? onTap;
 
-  const _TopBarIconButton({required this.icon});
+  const _TopBarIconButton({required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: 36,
         height: 36,
@@ -295,7 +300,7 @@ class _TopBarIconButton extends StatelessWidget {
           color: Colors.white.withValues(alpha: 0.15),
           border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
         ),
-        child: Icon(icon, color: AppColors.kText, size: 18),
+        child: Icon(icon, color: AppColors.kTextWhite, size: 18),
       ),
     );
   }

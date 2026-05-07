@@ -11,7 +11,7 @@ Widget sectionCard({required String label, required List<Widget> children}) =>
           child: Text(
             label.toUpperCase(),
             style: const TextStyle(
-              color: AppColors.kSubText,
+              color: AppColors.kTextBlack,
               fontSize: 11.5,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.8,
@@ -21,7 +21,7 @@ Widget sectionCard({required String label, required List<Widget> children}) =>
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
-            color: AppColors.kCard,
+            color: AppColors.kWhite,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: AppColors.kBorder),
           ),
@@ -77,7 +77,7 @@ Widget settingsRow({
                     Text(
                       subtitle,
                       style: const TextStyle(
-                        color: AppColors.kSubText,
+                        color: AppColors.kDarkLight,
                         fontSize: 12,
                       ),
                     ),

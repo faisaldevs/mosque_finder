@@ -44,8 +44,11 @@ class PersonalInfoPage extends StatelessWidget {
                         height: 80,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: AppColors.kCard,
-                          border: Border.all(color: AppColors.kPrimary, width: 2),
+                          color: AppColors.kWhiteLight,
+                          border: Border.all(
+                            color: AppColors.kPrimary,
+                            width: 2,
+                          ),
                         ),
                         child: const Center(
                           child: Text('🧑', style: TextStyle(fontSize: 42)),
@@ -58,7 +61,7 @@ class PersonalInfoPage extends StatelessWidget {
                           width: 26,
                           height: 26,
                           decoration: BoxDecoration(
-                            color: AppColors.kPrimary,
+                            color: AppColors.kWhiteDark,
                             shape: BoxShape.circle,
                             border: Border.all(color: AppColors.kBg, width: 2),
                           ),
@@ -89,7 +92,7 @@ class PersonalInfoPage extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.kCard,
+                      color: AppColors.kWhite,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: AppColors.kBorder),
                     ),
@@ -97,6 +100,7 @@ class PersonalInfoPage extends StatelessWidget {
                       children: [
                         AuthTextField(
                           label: 'Full name',
+                          // hintColor: AppColors.kDarkLight,
                           hint: vm.fullName.isNotEmpty
                               ? vm.fullName
                               : 'Faisal Ahmed',

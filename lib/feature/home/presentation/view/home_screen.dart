@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mosque_finder_app/app/router/config/route_extention.dart';
 import 'package:mosque_finder_app/app/router/config/route_names.dart';
 import 'package:mosque_finder_app/app/theme/app_colors.dart';
+import 'package:mosque_finder_app/feature/home/presentation/widgets/banner_widget.dart';
+import 'package:mosque_finder_app/feature/home/presentation/widgets/other_services.dart';
 import 'package:mosque_finder_app/feature/mosques/services/location_service.dart';
 import 'package:mosque_finder_app/feature/mosques/services/prayer_service.dart';
 
@@ -30,42 +32,42 @@ class _HomeScreenState extends State<HomeScreen> {
     _ActionItem(
       icon: Icons.location_on_rounded,
       label: 'Mosques',
-      color: Color(0xFF4CAF50),
+      color: Color(0xFF39A79F),
     ),
     _ActionItem(
       icon: Icons.menu_book_rounded,
       label: 'Education',
-      color: Color(0xFF2196F3),
+      color: Color(0xFF5B8DD9),
     ),
     _ActionItem(
       icon: Icons.favorite_rounded,
       label: 'Donate',
-      color: Color(0xFFE53935),
+      color: Color(0xFFD47E8B),
     ),
     _ActionItem(
       icon: Icons.shopping_bag_rounded,
       label: 'Market',
-      color: Color(0xFF7B1FA2),
+      color: Color(0xFF8B78CC),
     ),
     _ActionItem(
       icon: Icons.event_rounded,
       label: 'Events',
-      color: Color(0xFFE65100),
+      color: Color(0xFFE8975A),
     ),
     _ActionItem(
       icon: Icons.chat_bubble_rounded,
       label: 'Consult',
-      color: Color(0xFF00897B),
+      color: Color(0xFF52BDB5),
     ),
     _ActionItem(
       icon: Icons.group_rounded,
       label: 'Friends',
-      color: Color(0xFF3949AB),
+      color: Color(0xFF7BA88A),
     ),
     _ActionItem(
       icon: Icons.flight_rounded,
       label: 'Hajj',
-      color: Color(0xFFD81B60),
+      color: Color(0xFF39A79F),
     ),
   ];
 
@@ -108,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppColors.kBg,
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: AlwaysScrollableScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -118,9 +120,9 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 28),
             _buildQuickActions(),
             const SizedBox(height: 24),
-            _buildRamadanBanner(),
+            RamadanBannerCard(),
             const SizedBox(height: 28),
-            _buildBookServices(),
+            BookServicesCard(),
             const SizedBox(height: 24),
           ],
         ),
@@ -156,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Text(
                             'As-Salamu Alaykum',
                             style: TextStyle(
-                              color: AppColors.kText,
+                              color: AppColors.kTextWhite,
                               fontSize: 22,
                               fontWeight: FontWeight.w800,
                               letterSpacing: -0.3,
@@ -191,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         child: const Icon(
                           Icons.notifications_outlined,
-                          color: AppColors.kText,
+                          color: AppColors.kWhite,
                           size: 20,
                         ),
                       ),
@@ -238,9 +240,9 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.kCard,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.kBorder),
+            // color: AppColors.kGreenLight,
+            // borderRadius: BorderRadius.circular(16),
+            // border: Border.all(color: AppColors.kBorder),
           ),
           height: 200,
           child: const Center(child: CircularProgressIndicator()),
@@ -279,9 +281,21 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.kCard,
+            color: AppColors.kTextWhite.withValues(alpha: 0.9),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.kBorder),
+            // border: Border.all(color: AppColors.kBorder),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.kTextBlack.withValues(alpha: 0.1),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+              BoxShadow(
+                color: AppColors.kTextBlack.withValues(alpha: 0.1),
+                blurRadius: 12,
+                offset: const Offset(-0, -6),
+              ),
+            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   'Prayer Times',
                   style: TextStyle(
-                    color: AppColors.kText,
+                    color: AppColors.kPrimary,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),
@@ -390,11 +404,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Map<String, String>> _getNextTwoPrayers() {
     final nextIndex = _prayers.indexWhere((p) => p['name'] == _nextPrayerName);
-    if (nextIndex == -1)
+    if (nextIndex == -1) {
       return [
         {'name': '--', 'time': '--:--'},
         {'name': '--', 'time': '--:--'},
       ];
+    }
 
     final next = _prayers[nextIndex];
     final nextNext = nextIndex + 1 < _prayers.length
@@ -414,7 +429,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Text(
         time,
         style: const TextStyle(
-          color: AppColors.kText,
+          color: AppColors.kPrimary,
           fontSize: 13,
           fontWeight: FontWeight.w500,
         ),
@@ -506,188 +521,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  // ── Ramadan Banner ─────────────────────────────────────────────────────────
-
-  Widget _buildRamadanBanner() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: const LinearGradient(
-            colors: [Color(0xFF6A1B9A), Color(0xFFE91E63)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-        ),
-        child: Stack(
-          children: [
-            // Subtle decorative circle in banner
-            Positioned(
-              right: -20,
-              top: -20,
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.08),
-                ),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Ramadan Calendar 2026',
-                  style: TextStyle(
-                    color: AppColors.kText,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Prepare for the blessed month',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.8),
-                    fontSize: 13,
-                  ),
-                ),
-                const SizedBox(height: 14),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 9,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.4),
-                        width: 1,
-                      ),
-                    ),
-                    child: const Text(
-                      'View Calendar',
-                      style: TextStyle(
-                        color: AppColors.kText,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ── Book Services ──────────────────────────────────────────────────────────
-
-  Widget _buildBookServices() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            'Book Services',
-            style: TextStyle(
-              color: AppColors.kText,
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.kCard,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColors.kBorder),
-            ),
-            child: Column(
-              children: [
-                _serviceRow(
-                  icon: Icons.menu_book_rounded,
-                  iconColor: AppColors.kGreenLight,
-                  label: 'Book Hafiz',
-                  isLast: false,
-                ),
-                _serviceRow(
-                  icon: Icons.group_rounded,
-                  iconColor: AppColors.kBlueLight, // const Color(0xFF3949AB),
-                  label: 'Book Taraweeh',
-                  isLast: true,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _serviceRow({
-    required IconData icon,
-    required Color iconColor,
-    required String label,
-    required bool isLast,
-  }) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: iconColor.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: iconColor.withValues(alpha: 0.25),
-                    width: 1,
-                  ),
-                ),
-                child: Icon(icon, color: iconColor, size: 20),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Text(
-                  label,
-                  style: const TextStyle(
-                    color: AppColors.kText,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              const Icon(
-                Icons.arrow_forward_rounded,
-                color: AppColors.kSubText,
-                size: 18,
-              ),
-            ],
-          ),
-        ),
-        if (!isLast)
-          const Divider(height: 1, color: AppColors.kBorder, indent: 70),
-      ],
     );
   }
 }

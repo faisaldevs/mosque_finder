@@ -114,7 +114,7 @@ class _PostCardState extends State<PostCard> {
     return Container(
       margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
       decoration: BoxDecoration(
-        color: AppColors.kCard,
+        color: AppColors.kWhite,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.kBorder),
       ),
@@ -345,7 +345,7 @@ class _PostCardState extends State<PostCard> {
         tag = 'Check-in';
         break;
       case 'prayer':
-        bg = AppColors.kPrimary;
+        bg = const Color.fromARGB(255, 61, 87, 86);
         icon = Icons.access_time_rounded;
         tag = 'Prayer';
         break;

@@ -86,7 +86,7 @@ class _MosquesFinderScreenState extends State<MosquesFinderScreen>
     final mosques = await OverpassService.fetchNearbyMosques(
       lat: pos.latitude,
       lng: pos.longitude,
-      radiusMeters: 1500,
+      radiusMeters: 5000,
     );
 
     // Calculate distances and sort
@@ -206,6 +206,16 @@ class _MosquesFinderScreenState extends State<MosquesFinderScreen>
             )
           : null,
     );
+  }
+
+  String getPlaceEmoji(Mosque place) {
+    return place.isEidgah ? '🌿' : '🕌';
+  }
+
+  Color getPlaceColor(Mosque place) {
+    return place.isEidgah
+        ? const Color(0xFF2E7D32) // green for Eidgah
+        : const Color(0xFF1B5E20); // mosque green
   }
 
   Widget _buildHeader() {
@@ -379,8 +389,12 @@ class _MosquesFinderScreenState extends State<MosquesFinderScreen>
                     ],
                   ),
                   child: Center(
+                    // child: Text(
+                    //   '🕌',
+                    //   style: TextStyle(fontSize: isSelected ? 22 : 16),
+                    // ),
                     child: Text(
-                      '🕌',
+                      getPlaceEmoji(mosque),
                       style: TextStyle(fontSize: isSelected ? 22 : 16),
                     ),
                   ),

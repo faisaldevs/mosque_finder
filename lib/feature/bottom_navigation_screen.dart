@@ -121,23 +121,32 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   Widget _buildNavBar() {
     const items = [
-      _NavItem(icon: Icons.home_rounded, label: 'Home'),
       _NavItem(icon: Icons.article_rounded, label: 'Feed'),
+      _NavItem(icon: Icons.home_rounded, label: 'Home'),
+
       _NavItem(icon: Icons.location_on_rounded, label: 'Mosques'),
       _NavItem(icon: Icons.person_rounded, label: 'Profile'),
     ];
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.kCard,
+        color: AppColors.kWhite,
         border: const Border(
           top: BorderSide(color: AppColors.kBorder, width: 1),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
       ),
+
       child: SafeArea(
         top: false,
         child: SizedBox(
-          height: 64,
+          height: 74,
           child: Row(
             children: List.generate(items.length, (index) {
               final selected = widget.shell.currentIndex == index;
@@ -159,16 +168,16 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
                           color: selected
-                              ? AppColors.kPrimary.withValues(alpha: 0.15)
+                              ? AppColors.kPrimary.withValues(alpha: 0.9)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Icon(
                           items[index].icon,
-                          size: 22,
+                          size: 24,
                           color: selected
-                              ? AppColors.kGreenLight
-                              : AppColors.kSubText,
+                              ? AppColors.kWhite
+                              : AppColors.kDarkLight.withValues(alpha: 0.6),
                         ),
                       ),
                       const SizedBox(height: 2),
@@ -177,8 +186,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         style: TextStyle(
                           fontSize: 11,
                           color: selected
-                              ? AppColors.kGreenLight
-                              : AppColors.kSubText,
+                              ? AppColors.kPrimary
+                              : AppColors.kDarkLight.withValues(alpha: 0.6),
                           fontWeight: selected
                               ? FontWeight.w600
                               : FontWeight.w400,

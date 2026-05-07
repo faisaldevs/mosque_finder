@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColors.kBg,
           body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -107,7 +107,7 @@ class ProfileScreen extends StatelessWidget {
                               child: Text(
                                 '${vm.searchRadius.round()}',
                                 style: TextStyle(
-                                  color: AppColors.kText,
+                                  color: AppColors.kWhite,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -132,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
                       trailing: Switch(
                         value: vm.azanRemindersEnabled,
                         onChanged: (v) => vm.toggleAzanReminders(v),
-                        activeColor: AppColors.kGreenLight,
+                        activeColor: AppColors.kWhite,
                         activeTrackColor: AppColors.kPrimary,
                       ),
                       isLast: true,
@@ -168,7 +168,7 @@ class ProfileScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: AppColors.kCard,
+                      color: AppColors.kWhite,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: AppColors.kBorder),
                     ),
@@ -223,7 +223,10 @@ class ProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 28),
                     child: Text(
                       'Mosque Finder v1.0 · OpenStreetMap',
-                      style: TextStyle(color: AppColors.kSubText, fontSize: 12),
+                      style: TextStyle(
+                        color: AppColors.kDarkLight,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),
@@ -252,7 +255,7 @@ class ProfileScreen extends StatelessWidget {
                     const Text(
                       'My Profile',
                       style: TextStyle(
-                        color: AppColors.kText,
+                        color: AppColors.kTextWhite,
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                       ),
@@ -263,12 +266,12 @@ class ProfileScreen extends StatelessWidget {
                       height: 36,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: AppColors.kCard,
+                        color: AppColors.kDarkLight.withValues(alpha: 0.12),
                         border: Border.all(color: AppColors.kBorder, width: 1),
                       ),
                       child: const Icon(
                         Icons.edit_outlined,
-                        color: AppColors.kText,
+                        color: AppColors.kTextWhite,
                         size: 17,
                       ),
                     ),
@@ -287,7 +290,7 @@ class ProfileScreen extends StatelessWidget {
                           height: 68,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: AppColors.kCard,
+                            color: AppColors.kWhite.withValues(alpha: 0.15),
                             border: Border.all(
                               color: AppColors.kBorder,
                               width: 2,
@@ -328,7 +331,7 @@ class ProfileScreen extends StatelessWidget {
                           const Text(
                             'Faisal Ahmed',
                             style: TextStyle(
-                              color: AppColors.kText,
+                              color: AppColors.kTextWhite,
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
@@ -348,14 +351,14 @@ class ProfileScreen extends StatelessWidget {
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.kCard.withValues(alpha: 0.6),
+                              color: AppColors.kWhite.withValues(alpha: 0.6),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(color: AppColors.kBorder),
                             ),
                             child: const Text(
                               'Member since 2024',
                               style: TextStyle(
-                                color: AppColors.kText,
+                                color: AppColors.kDark,
                                 fontSize: 11.5,
                               ),
                             ),
@@ -412,7 +415,7 @@ class ProfileScreen extends StatelessWidget {
           Text(
             value,
             style: const TextStyle(
-              color: AppColors.kText,
+              color: AppColors.kTextWhite,
               fontSize: 15,
               fontWeight: FontWeight.w700,
             ),
@@ -420,7 +423,7 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             label,
-            style: const TextStyle(color: AppColors.kSubText, fontSize: 10.5),
+            style: const TextStyle(color: AppColors.kGreenDark, fontSize: 10.5),
           ),
         ],
       ),

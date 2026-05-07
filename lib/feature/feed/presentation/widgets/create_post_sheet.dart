@@ -67,7 +67,7 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
       maxChildSize: 0.95,
       builder: (_, scrollCtrl) => Container(
         decoration: const BoxDecoration(
-          color: AppColors.kCard,
+          color: AppColors.kWhite,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
@@ -127,7 +127,7 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
                       child: const Text(
                         'Post',
                         style: TextStyle(
-                          color: AppColors.kText,
+                          color: AppColors.kTextWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
                         ),
@@ -455,7 +455,7 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
   void _showPrivacyPicker() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.kCard,
+      backgroundColor: AppColors.kWhite,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
