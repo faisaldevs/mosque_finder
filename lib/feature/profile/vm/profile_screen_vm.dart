@@ -2,7 +2,7 @@ import 'package:mosque_finder_app/core/base/base_vm.dart';
 
 class ProfileScreenVm extends BaseViewModel<void> {
   // Preferences
-  int _calculationMethodIndex = 1; // Default to Muslim World League
+  int _calculationMethodIndex = 0; // Default to Muslim World League
   double _searchRadius = 5.0; // Default in km
   bool _azanRemindersEnabled = true;
 

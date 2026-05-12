@@ -42,7 +42,7 @@ Future<void> initializeApp() async {
   // // Uncomment these if Firebase and notifications are needed
   ///======================================================
   ///======================================================
-  ///
+
  
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
@@ -115,9 +115,11 @@ class UtillScreenMobile extends StatelessWidget {
           ),
           child: PopScope(
             canPop: false,
+
             onPopInvokedWithResult: (_, __) async {
               // showMaterialDialog(context: context);
             },
+            
             child: MaterialApp.router(
               // scaffoldMessengerKey: SnackbarService().key,
               routerConfig: AppRouter.router,

@@ -6,6 +6,7 @@ import 'package:mosque_finder_app/feature/profile/view/change_password.dart';
 import 'package:mosque_finder_app/feature/profile/view/profile_screen.dart';
 import 'package:mosque_finder_app/feature/profile/view/reminder_screen.dart';
 import 'package:mosque_finder_app/feature/profile/view/search_radius_screen.dart';
+import 'package:mosque_finder_app/feature/profile/view/setting_screen.dart';
 import 'package:mosque_finder_app/feature/profile/view/user_info_profile_screen.dart';
 
 class ProfileRouter {
@@ -64,6 +65,13 @@ class ProfileRouter {
       name: RouteNames.aboutUs.name,
       builder: (_, state) {
         return const AboutPage();
+      },
+    ),
+    GoRoute(
+      path: RouteNames.settings, // Add route name
+      name: RouteNames.settings.name,
+      builder: (_, state) {
+        return const SettingScreen();
       },
     ),
   ];

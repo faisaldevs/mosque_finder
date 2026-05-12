@@ -1,705 +1,767 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:math' as math;
 
-// void main() {
-//   runApp(const MosqueFinderApp());
-// }
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
+  runApp(const MyApp());
+}
 
-// class MosqueFinderApp extends StatelessWidget {
-//   const MosqueFinderApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Mosque Finder',
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         colorScheme: const ColorScheme.dark(
-//           primary: Color(0xFF2E7D32),
-//           surface: Color(0xFF1A1A1A),
-//         ),
-//         useMaterial3: true,
-//       ),
-//       home: const SplashPage(),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Discover',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(useMaterial3: true),
+      home: const DiscoverPage(),
+    );
+  }
+}
 
-// // ─── Shared Palette ───────────────────────────────────────────────────────────
+// ─── Constants ───────────────────────────────────────────────────────────────
 
-// const kGreen = Color(0xFF2E7D32);
-// const kGreenLight = Color(0xFF4CAF50);
-// const kBg = Color(0xFF1C1C1E);
-// const kCard = Color(0xFF2A2A2C);
-// const kBorder = Color(0xFF3A3A3C);
-// const kText = Color(0xFFFFFFFF);
-// const kSubText = Color(0xFF8E8E93);
-// const kError = Color(0xFFFF453A);
+const kTeal = Color(0xFF1AA596);
+const kTealLight = Color(0xFF22C4B0);
+const kTealDark = Color(0xFF0D7A6E);
+const kBg = Color(0xFFF5F7F9);
+const kCard = Colors.white;
+const kText = Color(0xFF0D1B1E);
+const kMuted = Color(0xFF7A9199);
 
-// // ─── Decorative Circles ───────────────────────────────────────────────────────
+// ─── Quick Action Data ────────────────────────────────────────────────────────
 
-// class _DecorativeCircles extends StatelessWidget {
-//   const _DecorativeCircles();
+class QuickAction {
+  final String label;
+  final IconData icon;
+  final Color color;
+  const QuickAction(this.label, this.icon, this.color);
+}
 
-//   Widget _circle(double size) => Container(
-//         width: size,
-//         height: size,
-//         decoration: BoxDecoration(
-//           shape: BoxShape.circle,
-//           border: Border.all(color: Colors.white.withValues(alpha:0.18), width: 1.5),
-//           color: Colors.transparent,
-//         ),
-//       );
+const _actions = [
+  QuickAction('Mosques', Icons.location_on_rounded, Color(0xFF1AA596)),
+  QuickAction('Education', Icons.menu_book_rounded, Color(0xFF4A6CF7)),
+  QuickAction('Donate', Icons.favorite_rounded, Color(0xFFE8567A)),
+  QuickAction('Market', Icons.shopping_bag_rounded, Color(0xFF8B5CF6)),
+  QuickAction('Events', Icons.event_rounded, Color(0xFFFF8C42)),
+  QuickAction('Consult', Icons.chat_bubble_rounded, Color(0xFF1AA596)),
+  QuickAction('Friends', Icons.group_rounded, Color(0xFF3D7A5E)),
+  QuickAction('Hajj', Icons.flight_rounded, Color(0xFF0B9EAE)),
+];
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Positioned.fill(
-//       child: Stack(children: [
-//         Positioned(top: -40, right: -40, child: _circle(180)),
-//         Positioned(top: 20, right: 60, child: _circle(110)),
-//       ]),
-//     );
-//   }
-// }
+// ─── Featured Card Data ───────────────────────────────────────────────────────
 
-// // ─── Shared Auth Header ───────────────────────────────────────────────────────
+class FeaturedCard {
+  final String title;
+  final String subtitle;
+  final String tag;
+  final Color color;
+  final Color tagColor;
+  final IconData icon;
+  const FeaturedCard({
+    required this.title,
+    required this.subtitle,
+    required this.tag,
+    required this.color,
+    required this.tagColor,
+    required this.icon,
+  });
+}
 
-// class _AppHeader extends StatelessWidget {
-//   final String title;
-//   final String subtitle;
-//   final bool showBack;
+const _featured = [
+  FeaturedCard(
+    title: 'Ramadan Calendar 2026',
+    subtitle: 'Prepare for the blessed month ahead',
+    tag: 'Upcoming',
+    color: Color(0xFF1AA596),
+    tagColor: Color(0xFFFFD166),
+    icon: Icons.calendar_month_rounded,
+  ),
+  FeaturedCard(
+    title: 'Daily Dhikr',
+    subtitle: 'Morning & evening remembrance',
+    tag: 'New',
+    color: Color(0xFF4A6CF7),
+    tagColor: Color(0xFFBBF7D0),
+    icon: Icons.auto_awesome_rounded,
+  ),
+  FeaturedCard(
+    title: 'Quran Recitation',
+    subtitle: 'Listen to beautiful recitations',
+    tag: 'Popular',
+    color: Color(0xFF8B5CF6),
+    tagColor: Color(0xFFFCA5A5),
+    icon: Icons.headphones_rounded,
+  ),
+];
 
-//   const _AppHeader({
-//     required this.title,
-//     required this.subtitle,
-//     this.showBack = false,
-//   });
+// ─── Discover Page ────────────────────────────────────────────────────────────
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return ClipRect(
-//       child: Stack(children: [
-//           Container(
-//             width: double.infinity,
-//             padding: const EdgeInsets.fromLTRB(24, 60, 24, 36),
-//             color: kGreen,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 if (showBack)
-//                   GestureDetector(
-//                     onTap: () => Navigator.pop(context),
-//                     child: Container(
-//                       width: 38,
-//                       height: 38,
-//                       decoration: BoxDecoration(
-//                         shape: BoxShape.circle,
-//                         color: Colors.white.withValues(alpha:0.15),
-//                         border: Border.all(
-//                             color: Colors.white.withValues(alpha:0.3), width: 1),
-//                       ),
-//                       child: const Icon(Icons.arrow_back_rounded,
-//                           color: kText, size: 18),
-//                     ),
-//                   )
-//                 else
-//                   Container(
-//                     width: 64,
-//                     height: 64,
-//                     decoration: BoxDecoration(
-//                       shape: BoxShape.circle,
-//                       color: Colors.white.withValues(alpha:0.15),
-//                       border: Border.all(
-//                           color: Colors.white.withValues(alpha:0.3), width: 1.5),
-//                     ),
-//                     child: const Center(
-//                         child: Text('🕌', style: TextStyle(fontSize: 30))),
-//                   ),
-//                 const SizedBox(height: 20),
-//                 Text(title,
-//                     style: const TextStyle(
-//                       color: kText,
-//                       fontSize: 28,
-//                       fontWeight: FontWeight.w700,
-//                       letterSpacing: -0.5,
-//                     )),
-//                 const SizedBox(height: 4),
-//                 Text(subtitle,
-//                     style: TextStyle(
-//                         color: Colors.white.withValues(alpha:0.75), fontSize: 15)),
-//               ],
-//             ),
-//           ),
-//           const _DecorativeCircles(),
-//         ]),
-//       );
-//   }
-// }
+class DiscoverPage extends StatefulWidget {
+  const DiscoverPage({super.key});
 
-// // ─── Reusable Text Field ──────────────────────────────────────────────────────
+  @override
+  State<DiscoverPage> createState() => _DiscoverPageState();
+}
 
-// class _AuthTextField extends StatelessWidget {
-//   final String label;
-//   final String hint;
-//   final IconData prefixIcon;
-//   final bool obscure;
-//   final Widget? suffix;
-//   final TextEditingController? controller;
-//   final String? errorText;
-//   final TextInputType? keyboardType;
-//   final void Function(String)? onChanged;
+class _DiscoverPageState extends State<DiscoverPage>
+    with SingleTickerProviderStateMixin {
+  int _navIndex = 1;
+  late AnimationController _headerAnim;
+  late Animation<double> _headerFade;
 
-//   const _AuthTextField({
-//     required this.label,
-//     required this.hint,
-//     required this.prefixIcon,
-//     this.obscure = false,
-//     this.suffix,
-//     this.controller,
-//     this.errorText,
-//     this.keyboardType,
-//     this.onChanged,
-//   });
+  @override
+  void initState() {
+    super.initState();
+    _headerAnim = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 700));
+    _headerFade = CurvedAnimation(parent: _headerAnim, curve: Curves.easeOut);
+    _headerAnim.forward();
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(label,
-//             style: const TextStyle(
-//                 color: kText, fontSize: 14, fontWeight: FontWeight.w500)),
-//         const SizedBox(height: 8),
-//         TextField(
-//           controller: controller,
-//           obscureText: obscure,
-//           keyboardType: keyboardType,
-//           onChanged: onChanged,
-//           style: const TextStyle(color: kText, fontSize: 15),
-//           decoration: InputDecoration(
-//             hintText: hint,
-//             hintStyle: const TextStyle(color: kSubText),
-//             prefixIcon: Icon(prefixIcon, color: kSubText, size: 20),
-//             suffixIcon: suffix,
-//             filled: true,
-//             fillColor: kCard,
-//             errorText: errorText,
-//             errorStyle: const TextStyle(color: kError),
-//             enabledBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(12),
-//               borderSide: const BorderSide(color: kBorder),
-//             ),
-//             focusedBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(12),
-//               borderSide: const BorderSide(color: kGreenLight, width: 1.5),
-//             ),
-//             errorBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(12),
-//               borderSide: const BorderSide(color: kError),
-//             ),
-//             focusedErrorBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(12),
-//               borderSide: const BorderSide(color: kError, width: 1.5),
-//             ),
-//             contentPadding:
-//                 const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
+  @override
+  void dispose() {
+    _headerAnim.dispose();
+    super.dispose();
+  }
 
-// // ─── Green Button ─────────────────────────────────────────────────────────────
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kBg,
+      extendBodyBehindAppBar: true,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeader(),
+            const SizedBox(height: 20),
+            _buildPrayerCard(),
+            const SizedBox(height: 28),
+            _buildSectionTitle('Quick Actions'),
+            const SizedBox(height: 14),
+            _buildQuickActions(),
+            const SizedBox(height: 28),
+            _buildSectionTitle('Featured'),
+            const SizedBox(height: 14),
+            _buildFeaturedScroll(),
+            const SizedBox(height: 28),
+            _buildSectionTitle('Explore'),
+            const SizedBox(height: 14),
+            _buildExploreGrid(),
+            const SizedBox(height: 100),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildNavBar(),
+    );
+  }
 
-// class _GreenButton extends StatelessWidget {
-//   final String text;
-//   final VoidCallback? onTap;
-//   final bool enabled;
+  // ── Header ────────────────────────────────────────────────────────────────
 
-//   const _GreenButton({required this.text, this.onTap, this.enabled = true});
+  Widget _buildHeader() {
+    return FadeTransition(
+      opacity: _headerFade,
+      child: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: kTeal,
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
+        ),
+        child: Stack(
+          children: [
+            // Decorative circles
+            Positioned(
+              top: -30,
+              right: -20,
+              child: _circle(140, Colors.white.withOpacity(0.07)),
+            ),
+            Positioned(
+              top: 30,
+              right: 60,
+              child: _circle(80, Colors.white.withOpacity(0.06)),
+            ),
+            Positioned(
+              bottom: -10,
+              left: -30,
+              child: _circle(100, Colors.white.withOpacity(0.05)),
+            ),
+            // Content
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                  24, MediaQuery.of(context).padding.top + 20, 24, 28),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'As-Salamu Alaykum',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: -0.3,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Monday, April 28, 2026  ·  29 Shawwal 1447',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.75),
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      // Bell button
+                      Container(
+                        width: 42,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.18),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: Colors.white.withOpacity(0.25), width: 1),
+                        ),
+                        child: const Icon(Icons.notifications_none_rounded,
+                            color: Colors.white, size: 22),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 18),
+                  // Next prayer pill
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                          color: Colors.white.withOpacity(0.2), width: 0.5),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFFFD166),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        const Text(
+                          'Next: Asr',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          '4:33 PM',
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.75),
+                              fontSize: 13),
+                        ),
+                        const SizedBox(width: 16),
+                        Text(
+                          'Maghrib  6:32 PM',
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.6),
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       width: double.infinity,
-//       height: 52,
-//       child: ElevatedButton(
-//         onPressed: enabled ? onTap : null,
-//         style: ElevatedButton.styleFrom(
-//           backgroundColor: enabled ? kGreen : kGreen.withValues(alpha:0.45),
-//           foregroundColor: kText,
-//           disabledForegroundColor: kText.withValues(alpha:0.5),
-//           elevation: 0,
-//           shape:
-//               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-//         ),
-//         child: Text(text,
-//             style: const TextStyle(
-//                 fontSize: 16,
-//                 fontWeight: FontWeight.w600,
-//                 letterSpacing: 0.2)),
-//       ),
-//     );
-//   }
-// }
+  Widget _circle(double size, Color color) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+    );
+  }
 
-// // ═════════════════════════════════════════════════════════════════════════════
-// // SPLASH SCREEN
-// // ═════════════════════════════════════════════════════════════════════════════
+  // ── Prayer Times Card ─────────────────────────────────────────────────────
 
-// class SplashPage extends StatefulWidget {
-//   const SplashPage({super.key});
+  Widget _buildPrayerCard() {
+    final prayers = [
+      ('Fajr', '5:10 AM', false),
+      ('Dhuhr', '12:15 PM', false),
+      ('Asr', '4:33 PM', true),
+      ('Maghrib', '6:32 PM', false),
+      ('Isha', '8:00 PM', false),
+    ];
 
-//   @override
-//   State<SplashPage> createState() => _SplashPageState();
-// }
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        decoration: BoxDecoration(
+          color: kCard,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 12,
+                offset: const Offset(0, 4)),
+          ],
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(18, 16, 18, 10),
+              child: Row(
+                children: [
+                  const Icon(Icons.access_time_rounded,
+                      color: kTeal, size: 20),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Prayer Times',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: kTeal),
+                  ),
+                  const Spacer(),
+                  Text('Today',
+                      style: TextStyle(fontSize: 12, color: kMuted)),
+                ],
+              ),
+            ),
+            const Divider(height: 1, color: Color(0xFFF0F2F5)),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              child: Row(
+                children: prayers.map((p) {
+                  final isNext = p.$3;
+                  return Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: isNext ? kTeal : const Color(0xFFF5F7F9),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          p.$1,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: isNext
+                                ? Colors.white.withOpacity(0.85)
+                                : kMuted,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          p.$2,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: isNext ? Colors.white : kText,
+                          ),
+                        ),
+                        if (isNext) ...[
+                          const SizedBox(height: 4),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const Text(
+                              'Next',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-// class _SplashPageState extends State<SplashPage>
-//     with SingleTickerProviderStateMixin {
-//   late AnimationController _ctrl;
-//   late Animation<double> _fadeAnim;
-//   late Animation<double> _scaleAnim;
+  // ── Section Title ─────────────────────────────────────────────────────────
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _ctrl = AnimationController(
-//         vsync: this, duration: const Duration(milliseconds: 900));
-//     _fadeAnim = CurvedAnimation(parent: _ctrl, curve: Curves.easeIn);
-//     _scaleAnim = Tween<double>(begin: 0.75, end: 1.0).animate(
-//         CurvedAnimation(parent: _ctrl, curve: Curves.easeOutBack));
-//     _ctrl.forward();
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: kText,
+              letterSpacing: -0.2,
+            ),
+          ),
+          Text(
+            'See all',
+            style: TextStyle(
+                fontSize: 13, color: kTeal, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
+  }
 
-//     Future.delayed(const Duration(milliseconds: 2500), () {
-//       if (mounted) {
-//         Navigator.pushReplacement(
-//           context,
-//           PageRouteBuilder(
-//             pageBuilder: (_, __, ___) => const SignInPage(),
-//             transitionsBuilder: (_, anim, __, child) =>
-//                 FadeTransition(opacity: anim, child: child),
-//             transitionDuration: const Duration(milliseconds: 500),
-//           ),
-//         );
-//       }
-//     });
-//   }
+  // ── Quick Actions ─────────────────────────────────────────────────────────
 
-//   @override
-//   void dispose() {
-//     _ctrl.dispose();
-//     super.dispose();
-//   }
+  Widget _buildQuickActions() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 12,
+          childAspectRatio: 0.78,
+        ),
+        itemCount: _actions.length,
+        itemBuilder: (context, i) => _buildActionItem(_actions[i]),
+      ),
+    );
+  }
 
-//   Widget _splashCircle(double size) => Container(
-//         width: size,
-//         height: size,
-//         decoration: BoxDecoration(
-//           shape: BoxShape.circle,
-//           border: Border.all(
-//               color: Colors.white.withValues(alpha:0.12), width: 1.5),
-//           color: Colors.transparent,
-//         ),
-//       );
+  Widget _buildActionItem(QuickAction action) {
+    return GestureDetector(
+      onTap: () {},
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: action.color.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                  color: action.color.withOpacity(0.15), width: 0.5),
+            ),
+            child: Icon(action.icon, color: action.color, size: 26),
+          ),
+          const SizedBox(height: 7),
+          Text(
+            action.label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 11.5,
+              fontWeight: FontWeight.w500,
+              color: kText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: kGreen,
-//       body: Stack(children: [
-//         // Decorative circles - same language as auth screens but fuller
-//         Positioned(bottom: -80, left: -80, child: _splashCircle(300)),
-//         Positioned(bottom: 60, left: 60, child: _splashCircle(200)),
-//         Positioned(top: -60, right: -60, child: _splashCircle(260)),
-//         Positioned(top: 80, right: 80, child: _splashCircle(140)),
+  // ── Featured Horizontal Scroll ────────────────────────────────────────────
 
-//         // Center content
-//         Center(
-//           child: FadeTransition(
-//             opacity: _fadeAnim,
-//             child: ScaleTransition(
-//               scale: _scaleAnim,
-//               child: Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: [
-//                   Container(
-//                     width: 100,
-//                     height: 100,
-//                     decoration: BoxDecoration(
-//                       shape: BoxShape.circle,
-//                       color: Colors.white.withValues(alpha:0.15),
-//                       border: Border.all(
-//                           color: Colors.white.withValues(alpha:0.35), width: 2),
-//                     ),
-//                     child: const Center(
-//                         child: Text('🕌', style: TextStyle(fontSize: 52))),
-//                   ),
-//                   const SizedBox(height: 28),
-//                   const Text(
-//                     'Mosque Finder',
-//                     style: TextStyle(
-//                       color: kText,
-//                       fontSize: 32,
-//                       fontWeight: FontWeight.w800,
-//                       letterSpacing: -0.5,
-//                     ),
-//                   ),
-//                   const SizedBox(height: 8),
-//                   Text(
-//                     'Find mosques near you',
-//                     style: TextStyle(
-//                         color: Colors.white.withValues(alpha:0.75), fontSize: 16),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
+  Widget _buildFeaturedScroll() {
+    return SizedBox(
+      height: 160,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        itemCount: _featured.length,
+        itemBuilder: (context, i) {
+          final card = _featured[i];
+          return Container(
+            width: 240,
+            margin: const EdgeInsets.only(right: 14),
+            decoration: BoxDecoration(
+              color: card.color,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Stack(
+              children: [
+                // Decorative arc
+                Positioned(
+                  right: -20,
+                  bottom: -20,
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.08),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 20,
+                  top: -15,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.07),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: card.tagColor,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              card.tag,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color: card.color,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          Icon(card.icon,
+                              color: Colors.white.withOpacity(0.7),
+                              size: 22),
+                        ],
+                      ),
+                      const Spacer(),
+                      Text(
+                        card.title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        card.subtitle,
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.72),
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                  color: Colors.white.withOpacity(0.3),
+                                  width: 0.5),
+                            ),
+                            child: const Text(
+                              'Explore',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
 
-//         // Bottom loading + tagline
-//         Positioned(
-//           bottom: 48,
-//           left: 0,
-//           right: 0,
-//           child: FadeTransition(
-//             opacity: _fadeAnim,
-//             child: Column(children: [
-//               const SizedBox(
-//                 width: 28,
-//                 height: 28,
-//                 child: CircularProgressIndicator(
-//                     strokeWidth: 2.5, color: Colors.white54),
-//               ),
-//               const SizedBox(height: 16),
-//               Text(
-//                 'Made with ♥ for the Ummah',
-//                 style: TextStyle(
-//                     color: Colors.white.withValues(alpha:0.5), fontSize: 13),
-//                 textAlign: TextAlign.center,
-//               ),
-//             ]),
-//           ),
-//         ),
-//       ]),
-//     );
-//   }
-// }
+  // ── Explore Grid ──────────────────────────────────────────────────────────
 
-// // ═════════════════════════════════════════════════════════════════════════════
-// // SIGN IN PAGE
-// // ═════════════════════════════════════════════════════════════════════════════
+  Widget _buildExploreGrid() {
+    final items = [
+      ('Qibla Direction', Icons.explore_rounded, const Color(0xFF1AA596)),
+      ('Islamic Articles', Icons.article_rounded, const Color(0xFF4A6CF7)),
+      ('Charity Drive', Icons.volunteer_activism_rounded, const Color(0xFFE8567A)),
+      ('Community', Icons.diversity_3_rounded, const Color(0xFF3D7A5E)),
+    ];
 
-// class SignInPage extends StatefulWidget {
-//   const SignInPage({super.key});
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: 1.55,
+        ),
+        itemCount: items.length,
+        itemBuilder: (context, i) {
+          final item = items[i];
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: kCard,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2)),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: item.$3.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(item.$2, color: item.$3, size: 22),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        item.$1,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: kText,
+                          height: 1.3,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 
-//   @override
-//   State<SignInPage> createState() => _SignInPageState();
-// }
+  // ── Bottom Navigation ─────────────────────────────────────────────────────
 
-// class _SignInPageState extends State<SignInPage> {
-//   bool _showPassword = false;
+  Widget _buildNavBar() {
+    final items = [
+      (Icons.dynamic_feed_rounded, 'Feed'),
+      (Icons.explore_rounded, 'Discover'),
+      (Icons.location_on_rounded, 'Mosques'),
+      (Icons.person_rounded, 'Profile'),
+    ];
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: kBg,
-//       body: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const _AppHeader(
-//                 title: 'Welcome back',
-//                 subtitle: 'Sign in to your account'),
-//             Padding(
-//               padding: const EdgeInsets.all(24),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   const _AuthTextField(
-//                     label: 'Email',
-//                     hint: 'user@gmail.com',
-//                     prefixIcon: Icons.mail_outline_rounded,
-//                     keyboardType: TextInputType.emailAddress,
-//                   ),
-//                   const SizedBox(height: 20),
-//                   _AuthTextField(
-//                     label: 'Password',
-//                     hint: '••••••••',
-//                     prefixIcon: Icons.lock_outline_rounded,
-//                     obscure: !_showPassword,
-//                     suffix: IconButton(
-//                       icon: Icon(
-//                         _showPassword
-//                             ? Icons.visibility_outlined
-//                             : Icons.visibility_off_outlined,
-//                         color: kSubText,
-//                         size: 20,
-//                       ),
-//                       onPressed: () =>
-//                           setState(() => _showPassword = !_showPassword),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 12),
-//                   Align(
-//                     alignment: Alignment.centerRight,
-//                     child: GestureDetector(
-//                       onTap: () => Navigator.push(
-//                           context,
-//                           MaterialPageRoute(
-//                               builder: (_) => const ForgotPasswordPage())),
-//                       child: const Text('Forgot password?',
-//                           style: TextStyle(
-//                               color: kGreenLight,
-//                               fontSize: 14,
-//                               fontWeight: FontWeight.w500)),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 28),
-//                   _GreenButton(text: 'Sign in', onTap: () {}),
-//                   const SizedBox(height: 24),
-//                   Row(children: [
-//                     const Expanded(
-//                         child: Divider(color: kBorder, thickness: 1)),
-//                     Padding(
-//                       padding: const EdgeInsets.symmetric(horizontal: 16),
-//                       child: Text('or continue with',
-//                           style: TextStyle(color: kSubText, fontSize: 13)),
-//                     ),
-//                     const Expanded(
-//                         child: Divider(color: kBorder, thickness: 1)),
-//                   ]),
-//                   const SizedBox(height: 16),
-//                   SizedBox(
-//                     width: double.infinity,
-//                     height: 52,
-//                     child: OutlinedButton.icon(
-//                       onPressed: () {},
-//                       icon: const Text('G',
-//                           style: TextStyle(
-//                               color: Color(0xFF4285F4),
-//                               fontSize: 18,
-//                               fontWeight: FontWeight.w700)),
-//                       label: const Text('Google',
-//                           style: TextStyle(color: kText, fontSize: 15)),
-//                       style: OutlinedButton.styleFrom(
-//                         side: const BorderSide(color: kBorder),
-//                         shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(14)),
-//                       ),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 28),
-//                   Center(
-//                     child: GestureDetector(
-//                       onTap: () => Navigator.push(context,
-//                           MaterialPageRoute(builder: (_) => const SignUpPage())),
-//                       child: RichText(
-//                         text: const TextSpan(
-//                           text: "Don't have an account? ",
-//                           style: TextStyle(color: kSubText, fontSize: 14),
-//                           children: [
-//                             TextSpan(
-//                               text: 'Sign up',
-//                               style: TextStyle(
-//                                   color: kGreenLight,
-//                                   fontWeight: FontWeight.w600),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 32),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// // ═════════════════════════════════════════════════════════════════════════════
-// // SIGN UP PAGE
-// // ═════════════════════════════════════════════════════════════════════════════
-
-// class SignUpPage extends StatefulWidget {
-//   const SignUpPage({super.key});
-
-//   @override
-//   State<SignUpPage> createState() => _SignUpPageState();
-// }
-
-// class _SignUpPageState extends State<SignUpPage> {
-//   final _emailController = TextEditingController();
-//   final _passwordController = TextEditingController();
-//   bool _agreed = false;
-//   bool _emailError = false;
-//   double _passwordStrength = 0;
-//   String _strengthLabel = '';
-//   Color _strengthColor = kBorder;
-
-//   void _evaluatePassword(String value) {
-//     double strength = 0;
-//     if (value.length >= 8) strength += 0.33;
-//     if (value.contains(RegExp(r'[A-Z]'))) strength += 0.33;
-//     if (value.contains(RegExp(r'[0-9!@#\$%^&*]'))) strength += 0.34;
-//     String label = '';
-//     Color color = kBorder;
-//     if (strength > 0 && strength <= 0.33) { label = 'Weak'; color = kError; }
-//     else if (strength > 0.33 && strength <= 0.66) { label = 'Fair'; color = const Color(0xFFFF9500); }
-//     else if (strength > 0.66) { label = 'Good strength'; color = kGreenLight; }
-//     setState(() { _passwordStrength = strength; _strengthLabel = label; _strengthColor = color; });
-//   }
-
-//   void _validateEmail(String value) {
-//     setState(() {
-//       _emailError = value.isNotEmpty && !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value);
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: kBg,
-//       body: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const _AppHeader(
-//                 title: 'Create account',
-//                 subtitle: 'Join the Mosque Finder community'),
-//             Padding(
-//               padding: const EdgeInsets.all(24),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   const _AuthTextField(
-//                       label: 'Full name',
-//                       hint: 'Faisal Ahmed',
-//                       prefixIcon: Icons.person_outline_rounded),
-//                   const SizedBox(height: 20),
-//                   _AuthTextField(
-//                     label: 'Email',
-//                     hint: 'user@gmail.com',
-//                     prefixIcon: Icons.mail_outline_rounded,
-//                     controller: _emailController,
-//                     keyboardType: TextInputType.emailAddress,
-//                     onChanged: _validateEmail,
-//                     errorText: _emailError ? 'Enter a valid email address' : null,
-//                   ),
-//                   const SizedBox(height: 20),
-//                   const Text('Password',
-//                       style: TextStyle(
-//                           color: kText, fontSize: 14, fontWeight: FontWeight.w500)),
-//                   const SizedBox(height: 8),
-//                   TextField(
-//                     controller: _passwordController,
-//                     obscureText: true,
-//                     onChanged: _evaluatePassword,
-//                     style: const TextStyle(color: kText, fontSize: 15),
-//                     decoration: InputDecoration(
-//                       hintText: '••••••••••',
-//                       hintStyle: const TextStyle(color: kSubText),
-//                       prefixIcon: const Icon(Icons.lock_outline_rounded,
-//                           color: kSubText, size: 20),
-//                       filled: true,
-//                       fillColor: kCard,
-//                       enabledBorder: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(12),
-//                           borderSide: const BorderSide(color: kBorder)),
-//                       focusedBorder: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(12),
-//                           borderSide: const BorderSide(color: kGreenLight, width: 1.5)),
-//                       contentPadding: const EdgeInsets.symmetric(
-//                           horizontal: 16, vertical: 16),
-//                     ),
-//                   ),
-//                   if (_passwordStrength > 0) ...[
-//                     const SizedBox(height: 8),
-//                     ClipRRect(
-//                       borderRadius: BorderRadius.circular(4),
-//                       child: LinearProgressIndicator(
-//                         value: _passwordStrength,
-//                         minHeight: 4,
-//                         backgroundColor: kBorder,
-//                         valueColor: AlwaysStoppedAnimation<Color>(_strengthColor),
-//                       ),
-//                     ),
-//                     const SizedBox(height: 4),
-//                     Text(_strengthLabel,
-//                         style: TextStyle(color: _strengthColor, fontSize: 12)),
-//                   ],
-//                   const SizedBox(height: 20),
-//                   Row(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       SizedBox(
-//                         width: 22,
-//                         height: 22,
-//                         child: Checkbox(
-//                           value: _agreed,
-//                           onChanged: (v) => setState(() => _agreed = v ?? false),
-//                           activeColor: kGreen,
-//                           shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(4)),
-//                           side: const BorderSide(color: kBorder),
-//                         ),
-//                       ),
-//                       const SizedBox(width: 10),
-//                       Expanded(
-//                         child: RichText(
-//                           text: const TextSpan(
-//                             text: 'I agree to the ',
-//                             style: TextStyle(color: kSubText, fontSize: 13),
-//                             children: [
-//                               TextSpan(
-//                                 text: 'Terms',
-//                                 style: TextStyle(
-//                                     color: kGreenLight, fontWeight: FontWeight.w500),
-//                               ),
-//                               TextSpan(text: ' and '),
-//                               TextSpan(
-//                                 text: 'Privacy Policy',
-//                                 style: TextStyle(
-//                                     color: kGreenLight, fontWeight: FontWeight.w500),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 28),
-//                   _GreenButton(
-//                       text: 'Create account', enabled: _agreed, onTap: () {}),
-//                   const SizedBox(height: 28),
-//                   Center(
-//                     child: GestureDetector(
-//                       onTap: () => Navigator.pop(context),
-//                       child: RichText(
-//                         text: const TextSpan(
-//                           text: 'Already have an account? ',
-//                           style: TextStyle(color: kSubText, fontSize: 14),
-//                           children: [
-//                             TextSpan(
-//                               text: 'Sign in',
-//                               style: TextStyle(
-//                                   color: kGreenLight, fontWeight: FontWeight.w600),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 32),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+    return Container(
+      decoration: BoxDecoration(
+        color: kCard,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 20,
+              offset: const Offset(0, -4)),
+        ],
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: Row(
+            children: List.generate(items.length, (i) {
+              final isActive = i == _navIndex;
+              return Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() => _navIndex = i),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: isActive
+                          ? kTeal.withOpacity(0.1)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          items[i].$1,
+                          color: isActive ? kTeal : kMuted,
+                          size: 24,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          items[i].$2,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: isActive
+                                ? FontWeight.w700
+                                : FontWeight.w400,
+                            color: isActive ? kTeal : kMuted,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+}

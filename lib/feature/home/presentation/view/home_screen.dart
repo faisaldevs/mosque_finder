@@ -141,9 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
             width: double.infinity,
             padding: EdgeInsets.fromLTRB(
               20,
-              MediaQuery.of(context).padding.top + 10,
+              MediaQuery.of(context).padding.top,
               20,
-              28,
+              12,
             ),
             color: AppColors.kPrimary,
             child: Column(
@@ -155,21 +155,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            'Discover'.toUpperCase(),
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.54),
+                              fontSize: 13,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
                           const Text(
-                            'As-Salamu Alaykum',
+                            'Explore the\nMuslim world',
                             style: TextStyle(
                               color: AppColors.kTextWhite,
                               fontSize: 22,
                               fontWeight: FontWeight.w800,
-                              letterSpacing: -0.3,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Monday, April 28, 2026 · 29 Shawwal 1447',
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.78),
-                              fontSize: 13,
+                              // letterSpacing: -0.3,
                             ),
                           ),
                         ],
@@ -440,7 +440,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // ── Quick Actions ──────────────────────────────────────────────────────────
 
   Widget _buildQuickActions() {
-    return Column(
+    return Column( 
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
@@ -454,9 +454,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
+     
         const SizedBox(height: 16),
+      
         Padding(
+          
           padding: const EdgeInsets.symmetric(horizontal: 16),
+
           child: GridView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
@@ -471,6 +475,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (_, i) => _buildActionTile(_actions[i]),
           ),
         ),
+
       ],
     );
   }

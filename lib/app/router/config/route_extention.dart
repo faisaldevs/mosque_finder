@@ -114,6 +114,7 @@ extension NavHelpers on NavigationService {
   void toSearchRadiusScreen() => push(RouteNames.searchRadius);
   void toAzanRemindersScreen() => push(RouteNames.azanReminders);
   void toAboutScreen() => push(RouteNames.aboutUs);
+  void toSettingScreen() => push(RouteNames.settings);
 
   // //======================
   // // Leaderboard Routes

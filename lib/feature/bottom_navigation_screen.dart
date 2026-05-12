@@ -122,8 +122,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget _buildNavBar() {
     const items = [
       _NavItem(icon: Icons.article_rounded, label: 'Feed'),
-      _NavItem(icon: Icons.home_rounded, label: 'Home'),
-
+      _NavItem(icon: Icons.explore_rounded, label: 'Discover'),
       _NavItem(icon: Icons.location_on_rounded, label: 'Mosques'),
       _NavItem(icon: Icons.person_rounded, label: 'Profile'),
     ];

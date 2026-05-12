@@ -88,41 +88,163 @@ class _FeedScreenContent extends StatelessWidget {
   }
 
   // ── Top bar ───────────────────────────────────────────────────────────────
+  // Widget _buildTopBar(BuildContext context) {
+  //   return ClipRect(
+  //     child: Stack(
+  //       children: [
+  //         Container(
+  //           width: double.infinity,
+  //           padding: const EdgeInsets.fromLTRB(20, 52, 20, 16),
+  //           color: AppColors.kPrimary,
+  //           child: Row(
+  //             children: [
+  //               Text(
+  //                 'Community Feed',
+  //                 style: TextStyle(
+  //                   color: AppColors.kTextWhite,
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.w800,
+  //                   letterSpacing: -0.3,
+  //                 ),
+  //               ),
+  //               Spacer(),
+  //               _TopBarIconButton(icon: Icons.search_rounded, onTap: () {}),
+  //               SizedBox(width: 8),
+  //               _TopBarIconButton(
+  //                 icon: Icons.notifications_outlined,
+  //                 onTap: () => nav.toNotificationScreen(),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Positioned.fill(
+  //           child: Stack(
+  //             children: [
+  //               Positioned(top: -35, right: -35, child: _circle(160)),
+  //               Positioned(top: 18, right: 55, child: _circle(95)),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Widget _circle(double s) => Container(
+  //   width: s,
+  //   height: s,
+  //   decoration: BoxDecoration(
+  //     shape: BoxShape.circle,
+  //     border: Border.all(
+  //       color: Colors.white.withValues(alpha: 0.15),
+  //       width: 1.5,
+  //     ),
+  //     color: Colors.transparent,
+  //   ),
+  // );
+
   Widget _buildTopBar(BuildContext context) {
     return ClipRect(
       child: Stack(
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(20, 52, 20, 16),
+            padding: EdgeInsets.fromLTRB(
+              20,
+              MediaQuery.of(context).padding.top + 10,
+              20,
+              20,
+            ),
             color: AppColors.kPrimary,
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Community Feed',
-                  style: TextStyle(
-                    color: AppColors.kTextWhite,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.3,
-                  ),
-                ),
-                Spacer(),
-                _TopBarIconButton(icon: Icons.search_rounded, onTap: () {}),
-                SizedBox(width: 8),
-                _TopBarIconButton(
-                  icon: Icons.notifications_outlined,
-                  onTap: () => nav.toNotificationScreen(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'As-Salamu Alaykum',
+                            style: TextStyle(
+                              color: AppColors.kTextWhite,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -0.3,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Monday, April 28, 2026 · 29 Shawwal 1447',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.78),
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Notification bell
+                    InkWell(
+                      onTap: () {
+                        // nav.toNotificationScreen();
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withValues(alpha: 0.15),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.25),
+                            width: 1,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.search_rounded,
+                          color: AppColors.kWhite,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    InkWell(
+                      onTap: () {
+                        nav.toNotificationScreen();
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withValues(alpha: 0.15),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.25),
+                            width: 1,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.notifications_outlined,
+                          color: AppColors.kWhite,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
+          // Decorative circles (consistent with auth screens)
           Positioned.fill(
-            child: Stack(
-              children: [
-                Positioned(top: -35, right: -35, child: _circle(160)),
-                Positioned(top: 18, right: 55, child: _circle(95)),
-              ],
+            child: IgnorePointer(
+              child: Stack(
+                children: [
+                  Positioned(top: -35, right: -35, child: _decorCircle(160)),
+                  Positioned(top: 18, right: 55, child: _decorCircle(95)),
+                ],
+              ),
             ),
           ),
         ],
@@ -130,9 +252,9 @@ class _FeedScreenContent extends StatelessWidget {
     );
   }
 
-  Widget _circle(double s) => Container(
-    width: s,
-    height: s,
+  Widget _decorCircle(double size) => Container(
+    width: size,
+    height: size,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(

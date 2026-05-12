@@ -241,7 +241,7 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
-import '../../models/mosque.dart';
+import '../models/mosque.dart';
 
 class OverpassService {
   static const _endpoints = [

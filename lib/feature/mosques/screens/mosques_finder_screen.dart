@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mosque_finder_app/feature/mosques/widgets/app_drawer.dart';
 
-import '../../models/mosque.dart';
+import '../models/mosque.dart';
 import '../services/location_service.dart';
 import '../services/overpass_service.dart';
 import '../services/prayer_service.dart';
@@ -27,7 +27,7 @@ class _MosquesFinderScreenState extends State<MosquesFinderScreen>
   final MapController _mapController = MapController();
   final bool _mapReady = false;
   LatLng initialCenter = const LatLng(23.8103, 90.4125); // Default: Dhaka
-  int _bottomNavIndex = 0; // 0=map, 1=list
+  final int _bottomNavIndex = 0; // 0=map, 1=list
 
   // Prayer times banner state
   String _nextPrayerLabel = '';
@@ -86,7 +86,7 @@ class _MosquesFinderScreenState extends State<MosquesFinderScreen>
     final mosques = await OverpassService.fetchNearbyMosques(
       lat: pos.latitude,
       lng: pos.longitude,
-      radiusMeters: 5000,
+      radiusMeters: 1500,
     );
 
     // Calculate distances and sort
@@ -506,90 +506,9 @@ class _MosquesFinderScreenState extends State<MosquesFinderScreen>
       ),
     );
   }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 12,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        top: false,
-        child: Row(
-          children: [
-            _NavItem(
-              icon: Icons.map_outlined,
-              activeIcon: Icons.map,
-              label: 'Map',
-              selected: _bottomNavIndex == 0,
-              onTap: () => setState(() => _bottomNavIndex = 0),
-            ),
-            _NavItem(
-              icon: Icons.format_list_bulleted,
-              activeIcon: Icons.format_list_bulleted,
-              label: 'List',
-              selected: _bottomNavIndex == 1,
-              onTap: () => setState(() => _bottomNavIndex = 1),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 // ─── Reusable widgets ────────────────────────────────────────────────────────
-
-class _NavItem extends StatelessWidget {
-  final IconData icon, activeIcon;
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-  const _NavItem({
-    required this.icon,
-    required this.activeIcon,
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                selected ? activeIcon : icon,
-                color: selected ? const Color(0xFF1B5E20) : Colors.grey,
-                size: 24,
-              ),
-              const SizedBox(height: 2),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: selected ? const Color(0xFF1B5E20) : Colors.grey,
-                  fontWeight: selected ? FontWeight.w600 : FontWeight.normal,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _MosqueListTile extends StatelessWidget {
   final Mosque mosque;

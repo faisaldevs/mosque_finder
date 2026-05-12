@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/mosque.dart';
+import '../models/mosque.dart';
 import 'detail_screen.dart';
 
 class SavedMosquesScreen extends StatefulWidget {

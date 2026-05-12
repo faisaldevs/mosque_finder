@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:adhan/adhan.dart';
+
 import '../services/prayer_service.dart';
 
 class PrayerTimesScreen extends StatelessWidget {
@@ -40,7 +40,11 @@ class PrayerTimesScreen extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   'Next: $nextName',
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
@@ -54,11 +58,19 @@ class PrayerTimesScreen extends StatelessWidget {
                 final isNext = p['name'] == nextName;
                 return Container(
                   margin: const EdgeInsets.only(bottom: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
+                  ),
                   decoration: BoxDecoration(
                     color: isNext ? const Color(0xFF1B5E20) : Colors.white,
                     borderRadius: BorderRadius.circular(14),
-                    boxShadow: [BoxShadow(color: Colors.black .withValues(alpha:  0.05), blurRadius: 6)],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 6,
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
@@ -68,8 +80,12 @@ class PrayerTimesScreen extends StatelessWidget {
                         p['name']!,
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: isNext ? FontWeight.w600 : FontWeight.normal,
-                          color: isNext ? Colors.white : const Color(0xFF333333),
+                          fontWeight: isNext
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                          color: isNext
+                              ? Colors.white
+                              : const Color(0xFF333333),
                         ),
                       ),
                       const Spacer(),
@@ -78,7 +94,9 @@ class PrayerTimesScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: isNext ? Colors.white : const Color(0xFF1B5E20),
+                          color: isNext
+                              ? Colors.white
+                              : const Color(0xFF1B5E20),
                         ),
                       ),
                     ],
@@ -101,8 +119,29 @@ class PrayerTimesScreen extends StatelessWidget {
 
   String _todayFormatted() {
     final now = DateTime.now();
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
     return '${days[now.weekday - 1]}, ${now.day} ${months[now.month - 1]} ${now.year}';
   }
 }

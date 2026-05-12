@@ -45,6 +45,7 @@ class RouteNames {
   static const String aboutUs = "/about_us";
   static const String searchRadius = "/search_radius";
   static const String calcMethod = "/calc_method";
+  static const String settings = "/settings";
 }
 
 extension AppRoutesName on String {
