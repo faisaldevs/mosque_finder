@@ -112,7 +112,11 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: widget.shell, bottomNavigationBar: _buildNavBar());
+    return Scaffold(
+      body: widget.shell,
+      bottomNavigationBar: _buildNavBar(),
+      drawer: Drawer(),
+    );
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -154,10 +158,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
+                  
                     widget.shell.goBranch(
                       index,
                       initialLocation: index == widget.shell.currentIndex,
                     );
+                    
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

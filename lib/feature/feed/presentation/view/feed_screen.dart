@@ -161,6 +161,18 @@ class _FeedScreenContent extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    InkWell(
+                      onTap: () {
+                        // nav.toNotificationScreen();
+                        Scaffold.of(context).openDrawer();
+                      },
+                      child: const Icon(
+                        Icons.menu_rounded,
+                        color: AppColors.kWhite,
+                        size: 35,
+                      ),
+                    ),
+                    SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

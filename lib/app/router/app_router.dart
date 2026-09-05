@@ -31,6 +31,7 @@ class AppRouter {
         /// ************ Initial Routes ************
         ///===================================================
         ///===================================================
+
         GoRoute(
           path: RouteNames.initialLoading,
           builder: (_, __) => const Loading(),
@@ -48,6 +49,8 @@ class AppRouter {
         /// ************ Feature-specific routes ************
         ///===================================================
         ///===================================================
+        
+        
         ...AuthRouter.routes,
         ...HomeRouter.routes,
         ...ProfileRouter.routes,
@@ -81,7 +84,6 @@ class AppRouter {
 
         _buildBranch(RouteNames.mosque, const MosquesFinderScreen()),
 
-        // _buildBranch(RouteNames.ranking, const HomeScreen()),
         _buildBranch(RouteNames.profile, const ProfileScreen()),
       ],
     );
